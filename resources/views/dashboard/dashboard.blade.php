@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @extends('layouts.admin')
-=======
-@extends('admin')
->>>>>>> 456973b67f4c9aa88de9a27856150b214bf88a1c
 @section('breadcrumb')
 <ul class="navbar-nav float-start me-auto">
     <!-- ============================================================== -->
