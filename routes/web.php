@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CategoriesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard.dashboard');
+    return view('categories.index');
 });
+
+// Route::post('/generates', [QaGeneratorsController::class, 'store']);
+Route::resource('categories', CategoriesController::class);

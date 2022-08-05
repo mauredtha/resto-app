@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Menu;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
