@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-@extends('layouts.admin')
-=======
-@extends('admin')
->>>>>>> 456973b67f4c9aa88de9a27856150b214bf88a1c
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
 <ul class="navbar-nav float-start me-auto">
     <!-- ============================================================== -->
     <!-- Breadcrumb -->
@@ -20,8 +15,8 @@
 
     </li>
 </ul>
-@endsection
-@section('sidebar')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('sidebar'); ?>
  <!-- ============================================================== -->
 <!-- Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
@@ -56,8 +51,8 @@
 <!-- ============================================================== -->
 <!-- End Left Sidebar - style you can find in sidebar.scss  -->
 <!-- ============================================================== -->
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
@@ -438,8 +433,18 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer text-center">
+        All Rights Reserved by Flexy Admin. Designed and Developed by <a
+            href="https://www.wrappixel.com">WrapPixel</a>.
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
 </div>
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/macbook/Downloads/resto-app-main/resources/views/dashboard/dashboard.blade.php ENDPATH**/ ?>
