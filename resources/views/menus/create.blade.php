@@ -9,10 +9,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 d-flex align-items-center">
             <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Master Categories</li>
+            <li class="breadcrumb-item active" aria-current="page">Master Menu</li>
         </ol>
         </nav>
-    <h1 class="mb-0 fw-bold">Master Categories</h1> 
+    <h1 class="mb-0 fw-bold">Master Menu</h1> 
 
     </li>
 </ul>
@@ -40,10 +40,10 @@
                         href="icon-material.html" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
                             class="hide-menu">Pembayaran QRIS</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-food"></i><span
+                        href="{{route('menus.index')}}" aria-expanded="false"><i class="mdi mdi-food"></i><span
                             class="hide-menu">Menu</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-label"></i><span
+                        href="{{route('categories.index')}}" aria-expanded="false"><i class="mdi mdi-label"></i><span
                             class="hide-menu">Categories</span></a></li>
             </ul>
 
@@ -68,57 +68,66 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material mx-2">
-                        <div class="form-group">
-                            <label class="col-md-12">Full Name</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="Johnathan Doe"
-                                    class="form-control form-control-line">
-                            </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
+                    @endif
+                    <form class="form-horizontal form-material mx-2" action="{{ route('menus.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                         <div class="form-group">
-                            <label for="example-email" class="col-md-12">Email</label>
+                            <label class="col-md-12">Category</label>
                             <div class="col-md-12">
-                                <input type="email" placeholder="johnathan@admin.com"
-                                    class="form-control form-control-line" name="example-email"
-                                    id="example-email">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Password</label>
-                            <div class="col-md-12">
-                                <input type="password" value="password"
-                                    class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Phone No</label>
-                            <div class="col-md-12">
-                                <input type="text" placeholder="123 456 7890"
-                                    class="form-control form-control-line">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Message</label>
-                            <div class="col-md-12">
-                                <textarea rows="5" class="form-control form-control-line"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-12">Select Country</label>
-                            <div class="col-sm-12">
-                                <select class="form-select shadow-none form-control-line">
-                                    <option>London</option>
-                                    <option>India</option>
-                                    <option>Usa</option>
-                                    <option>Canada</option>
-                                    <option>Thailand</option>
+                                <select class="form-select shadow-none form-control-line" name="category_id" id="category_id">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach ($categories as $key => $value)
+                                    <option value="{{$value->id}}">{{$value->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="name" class="col-md-12">Name</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Name"
+                                    class="form-control form-control-line" name="name"
+                                    id="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-md-12">Description</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" class="form-control form-control-line" name="description"
+                                    id="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Price</label>
+                            <div class="col-md-12">
+                                <input type="text" name="price" id="price" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Pict</label>
+                            <div class="col-md-12">
+                                <input type="file" name="pict" id="pict" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                        <label class="col-md-12">Status</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status">
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <div class="col-sm-12">
-                                <button class="btn btn-success text-white">Update Profile</button>
+                                <button class="btn btn-success text-white">Submit</button>
                             </div>
                         </div>
                     </form>

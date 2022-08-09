@@ -9,10 +9,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 d-flex align-items-center">
             <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Master Categories</li>
+            <li class="breadcrumb-item active" aria-current="page">Master Menu</li>
         </ol>
         </nav>
-    <h1 class="mb-0 fw-bold">Master Categories</h1> 
+    <h1 class="mb-0 fw-bold">Master Menu</h1> 
 
     </li>
 </ul>
@@ -78,16 +78,59 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal form-material mx-2" action="{{ route('categories.update',$category->id) }}" method="POST">
+                    <form class="form-horizontal form-material mx-2" action="{{ route('menus.update',$menu->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                        <div class="form-group">
-                            <label class="col-md-12">Category Name</label>
+                    <div class="form-group">
+                            <label class="col-md-12">Category</label>
                             <div class="col-md-12">
-                                <input id="name" name="name" type="text" placeholder="Beverages"
-                                    class="form-control form-control-line" value="{{ $category->name }}">
+                                <select class="form-select shadow-none form-control-line" name="category_id" id="category_id">
+                                    <option value="">Pilih Kategori</option>
+                                    @foreach ($categories as $key => $value)
+                                    <option value="{{$value->id}}" {{ $value->id == $menu->category_id ? 'selected' : '' }} >{{$value->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="name" class="col-md-12">Name</label>
+                            <div class="col-md-12">
+                                <input type="text" placeholder="Name"
+                                    class="form-control form-control-line" name="name"
+                                    id="name" value="{{$menu->name}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-md-12">Description</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" class="form-control form-control-line" name="description"
+                                    id="description">{{$menu->description}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Price</label>
+                            <div class="col-md-12">
+                                <input type="text" name="price" id="price" class="form-control form-control-line" value="{{$menu->price}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Pict</label>
+                            <div class="col-md-12">
+                                <input type="file" name="pict" id="pict" class="form-control form-control-line" value="{{$menu->pict}}">
+                            </div>
+                            <img src="{{ asset('storage/uploads/'.$menu->pict) }}" alt="" title="" id="pict" name="pict" class="form-control form-control-line" width="30%" height="30%"/>
+                        </div>
+                        
+                        <div class="form-group">
+                        <label class="col-md-12">Status</label>
+                        <div class="form-check form-switch">
+                            @if ($menu->status == 'on')
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked name="status" value="{{$menu->status}}">
+                            @else
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status" value="{{$menu->status}}">
+                            @endif
+                        </div>
+                        <br>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <button class="btn btn-success text-white">Submit</button>

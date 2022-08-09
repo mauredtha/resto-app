@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\MenusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::get('/', function () {
 
 // Route::post('/generates', [QaGeneratorsController::class, 'store']);
 Route::resource('categories', CategoriesController::class);
+Route::resource('menus', MenusController::class);

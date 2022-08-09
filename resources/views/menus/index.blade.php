@@ -9,10 +9,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 d-flex align-items-center">
             <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Master Categories</li>
+            <li class="breadcrumb-item active" aria-current="page">Master Menu</li>
         </ol>
         </nav>
-    <h1 class="mb-0 fw-bold">Master Categories</h1> 
+    <h1 class="mb-0 fw-bold">Master Menu</h1> 
 
     </li>
 </ul>
@@ -40,10 +40,10 @@
                         href="icon-material.html" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
                             class="hide-menu">Pembayaran QRIS</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-food"></i><span
+                        href="{{route('menus.index')}}" aria-expanded="false"><i class="mdi mdi-food"></i><span
                             class="hide-menu">Menu</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-label"></i><span
+                        href="{{route('categories.index')}}" aria-expanded="false"><i class="mdi mdi-label"></i><span
                             class="hide-menu">Categories</span></a></li>
             </ul>
 
@@ -82,8 +82,8 @@
                             </div>
                             <div class="ms-auto">
                                 <div class="text-end upgrade-btn">
-                                    <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white"
-                                        target="_blank">Add Categories</a>
+                                    <a href="{{ route('menus.create') }}" class="btn btn-primary text-white"
+                                        target="_self">Add Menu</a>
                                 </div>
                             </div>
                         </div>
@@ -92,22 +92,45 @@
                             <table class="table mb-0 table-hover align-middle text-nowrap">
                                 <thead>
                                     <tr>
+                                        <th class="border-top-0">No</th>
+                                        <th class="border-top-0">Category</th>
                                         <th class="border-top-0">Name</th>
+                                        <th class="border-top-0">Description</th>
+                                        <th class="border-top-0">Pict</th>
+                                        <th class="border-top-0">Price</th>
+                                        <th class="border-top-0">Status</th>
                                         <th class="border-top-0" colspan="3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if(count($data['menus']) > 0) { ?>
+                                    @foreach ($data['menus'] as $key => $value)
                                     <tr>
-                                        <td>Single Use</td>
+                                        <td>{{++$data['i']}}</td>
+                                        <td>{{$value->category_id}}</td>
+                                        <td>{{$value->name}}</td>
+                                        <td>{{$value->description}}</td>
+                                        <td>{{$value->pict}}</td>
+                                        <td>{{$value->price}}</td>
+                                        <td>{{$value->status}}</td>
                                         <td>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-info text-white"
-                                        target="_blank">Show</a>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white"
-                                        target="_blank">Edits</a>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-danger text-white"
-                                        target="_blank">Delete</a>
+                                        <form action="{{ route('menus.destroy',$value->id) }}" method="POST">
+   
+                                            <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a>
+
+                                            <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
+                                        </form>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                    <?php } else { ?>
+                                        <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

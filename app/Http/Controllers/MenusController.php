@@ -2,85 +2,123 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        //
+        $menus = Menu::latest()->paginate(5);
+
+        $data = [
+            'menus' => $menus,
+            'i' => (request()->input('page', 1) - 1) * 10
+        ];
+        
+        //dd($data);
+
+        return view('menus.index',compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        $categories = Category::get();
+        return view('menus.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
+        ]);
+
+        if($request->file('pict')){
+            $name = date('YmdHis').'_'.$request->pict->getClientOriginalName();
+            $filePath = $request->file('pict')->storeAs('uploads', $name, 'public');
+            $fileName = date('YmdHis').'_'.$request->pict->getClientOriginalName();
+            $data['pict'] = $fileName;
+        }
+
+        $data['name'] = $request->name;
+        $data['description'] = $request->description;
+        $data['category_id'] = $request->category_id;
+        $data['price'] = $request->price;
+        $data['status'] = $request->status;
+        
+        Menu::create($data); //$request->all()
+       
+        return redirect()->route('menus.index')
+                        ->with('success','Menu created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show(Menu $menu)
     {
-        //
+        return view('menus.show',compact('menu'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(Menu $menu)
     {
-        //
+        $categories = Category::get();
+        return view('menus.edit',compact(['menu', 'categories']));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, Menu $menu)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+            'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
+        ]);
+
+        if($request->file('pict')){
+            $name = date('YmdHis').'_'.$request->pict->getClientOriginalName();
+
+            if($menu->pict != $name){
+                $image_path = Storage::path('public/uploads/'.$menu->pict);
+                unlink($image_path);
+            }
+            $filePath = $request->file('pict')->storeAs('uploads', $name, 'public');
+            $fileName = date('YmdHis').'_'.$request->pict->getClientOriginalName();
+            $data['pict'] = $fileName;
+        }
+
+        $data['name'] = $request->name;
+        $data['description'] = $request->description;
+        $data['category_id'] = $request->category_id;
+        $data['price'] = $request->price;
+        $data['status'] = $request->status;
+        $data['updated_at'] = date('Y-m-d H:i:s');
+      
+        $menu->update($data); //$request->all()
+      
+        return redirect()->route('menus.index')
+                        ->with('success','Menu updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Menu  $menu
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Menu $menu)
     {
-        //
+        $image_path = Storage::path('public/uploads/'.$menu->pict);
+        unlink($image_path);
+
+        $menu->delete();
+       
+        return redirect()->route('menus.index')
+                        ->with('success','Menu deleted successfully');
     }
 }
