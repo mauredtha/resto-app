@@ -40,20 +40,21 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="form-horizontal form-material mx-2" action="{{ route('users.store') }}" method="POST">
+                    <form class="form-horizontal form-material mx-2" action="{{ route('users.update',$user->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                         <div class="form-group">
                             <label class="col-md-12">Full Name</label>
                             <div class="col-md-12">
                                 <input type="text" placeholder="Johnathan Doe"
-                                    class="form-control form-control-line" name="name" id="name">
+                                    class="form-control form-control-line" name="name" id="name" value="{{$user->name}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Username</label>
                             <div class="col-md-12">
                                 <input type="text" placeholder="jo_doe"
-                                    class="form-control form-control-line" name="username" id="username">
+                                    class="form-control form-control-line" name="username" id="username" value="{{$user->username}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,28 +62,28 @@
                             <div class="col-md-12">
                                 <input type="email" placeholder="johnathan@admin.com"
                                     class="form-control form-control-line" name="email"
-                                    id="email">
+                                    id="email" value="{{$user->email}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Password</label>
                             <div class="col-md-12">
                                 <input type="password"
-                                    class="form-control form-control-line" name="password" id="password">
+                                    class="form-control form-control-line" name="password" id="password" value="{{$user->password}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Re-Password</label>
                             <div class="col-md-12">
                                 <input type="password" 
-                                    class="form-control form-control-line" name="password_confirmation" id="password_confirmation">
+                                    class="form-control form-control-line" name="password_confirmation" id="password_confirmation" value="{{$user->password}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Phone No</label>
                             <div class="col-md-12">
                                 <input type="text" placeholder="123 456 7890"
-                                    class="form-control form-control-line" name="phone" id="phone">
+                                    class="form-control form-control-line" name="phone" id="phone" value="{{$user->phone}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -91,7 +92,7 @@
                                 <select class="form-select shadow-none form-control-line" name="role" id="role">
                                     <option value="">Pilih Role</option>
                                     @foreach ($roles as $key => $value)
-                                    <option value="{{$value}}">{{$value}}</option>
+                                    <option value="{{$value}}" {{ $value == $user->role ? 'selected' : '' }}>{{$value}}</option>
                                     @endforeach
                                 </select>
                             </div>

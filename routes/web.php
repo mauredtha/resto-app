@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\MenusController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,21 @@ use App\Http\Controllers\MenusController;
 */
 
 Route::get('/', function () {
-    return view('categories.index');
+    return view('login');
 });
 
-// Route::post('/generates', [QaGeneratorsController::class, 'store']);
-Route::resource('categories', CategoriesController::class);
-Route::resource('menus', MenusController::class);
+//Route::get('/', 'AuthController@showFormLogin')->name('login');
+Route::get('login', [UsersController::class, 'showLogin'])->name('login');
+Route::post('login', [UsersController::class, 'login']);
+
+// Route::get('cms', [UsersController::class, 'showLogin'])->name('cms');
+// Route::post('login', [UsersController::class, 'login'])->name('login');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('logout', [UsersController::class, 'logout'])->name('logout');
+
+    Route::resource('categories', CategoriesController::class);
+    Route::resource('menus', MenusController::class);
+    Route::resource('users', UsersController::class);
+});

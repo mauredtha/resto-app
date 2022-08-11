@@ -9,53 +9,15 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0 d-flex align-items-center">
             <li class="breadcrumb-item"><a href="index.html" class="link"><i class="mdi mdi-home-outline fs-4"></i></a></li>
-            <li class="breadcrumb-item active" aria-current="page">Master Categories</li>
+            <li class="breadcrumb-item active" aria-current="page">Master User</li>
         </ol>
         </nav>
-    <h1 class="mb-0 fw-bold">Master Categories</h1> 
+    <h1 class="mb-0 fw-bold">Master User</h1> 
 
     </li>
 </ul>
 @endsection
-@section('sidebar')
- <!-- ============================================================== -->
-<!-- Left Sidebar - style you can find in sidebar.scss  -->
-<!-- ============================================================== -->
-<aside class="left-sidebar" data-sidebarbg="skin6">
-    <!-- Sidebar scroll-->
-    <div class="scroll-sidebar">
-        <!-- Sidebar navigation-->
-        <nav class="sidebar-nav">
-            <ul id="sidebarnav">
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
-                            class="hide-menu">Dashboard</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="pages-profile.html" aria-expanded="false"><i
-                            class="mdi mdi-account-network"></i><span class="hide-menu">Users</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="table-basic.html" aria-expanded="false"><i class="mdi mdi-currency-usd"></i><span
-                            class="hide-menu">Pembayaran Kasir</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="icon-material.html" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
-                            class="hide-menu">Pembayaran QRIS</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-food"></i><span
-                            class="hide-menu">Menu</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="starter-kit.html" aria-expanded="false"><i class="mdi mdi-label"></i><span
-                            class="hide-menu">Categories</span></a></li>
-            </ul>
 
-        </nav>
-        <!-- End Sidebar navigation -->
-    </div>
-    <!-- End Sidebar scroll-->
-</aside>
-<!-- ============================================================== -->
-<!-- End Left Sidebar - style you can find in sidebar.scss  -->
-<!-- ============================================================== -->
-@endsection
 @section('content')
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -82,8 +44,8 @@
                             </div>
                             <div class="ms-auto">
                                 <div class="text-end upgrade-btn">
-                                    <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white"
-                                        target="_blank">Add Categories</a>
+                                    <a href="{{ route('users.create') }}" class="btn btn-primary text-white"
+                                        target="_self">Add User</a>
                                 </div>
                             </div>
                         </div>
@@ -93,21 +55,41 @@
                                 <thead>
                                     <tr>
                                         <th class="border-top-0">Name</th>
+                                        <th class="border-top-0">Username</th>
+                                        <th class="border-top-0">Email</th>
+                                        <th class="border-top-0">Role</th>
                                         <th class="border-top-0" colspan="3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php if(count($data['users']) > 0) { ?>
+                                    @foreach ($data['users'] as $key => $value)
                                     <tr>
-                                        <td>Single Use</td>
+                                        <td>{{++$data['i']}}</td>
+                                        <td>{{$value->name}}</td>
+                                        <td>{{$value->username}}</td>
+                                        <td>{{$value->email}}</td>
+                                        <td>{{$value->role}}</td>
                                         <td>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-info text-white"
-                                        target="_blank">Show</a>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-primary text-white"
-                                        target="_blank">Edits</a>
-                                        <a href="https://www.wrappixel.com/templates/flexy-bootstrap-admin-template/" class="btn btn-danger text-white"
-                                        target="_blank">Delete</a>
+                                        <form action="{{ route('users.destroy',$value->id) }}" method="POST">
+   
+                                            <a class="btn btn-info text-white" href="{{ route('users.show',$value->id) }}">Show</a>
+
+                                            <a class="btn btn-primary text-white" href="{{ route('users.edit',$value->id) }}">Edit</a>
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
+                                        </form>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                    <?php } else { ?>
+                                    <tr>
+                                        <td colspan="7"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
+                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

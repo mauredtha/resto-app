@@ -53,8 +53,8 @@
                             My Profile</a>
                         <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i>
                             My Balance</a>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i>
-                            Inbox</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"><i class="ti-shift-right m-r-5 m-l-5"></i>
+                            Logout</a>
                     </ul>
                 </li>
                 <!-- ============================================================== -->
