@@ -25,6 +25,9 @@
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{route('categories.index')}}" aria-expanded="false"><i class="mdi mdi-label"></i><span
                             class="hide-menu">Categories</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                    href="#" aria-expanded="false"><i class="mdi mdi-file-document"></i><span
+                        class="hide-menu">Report</span></a></li>
             </ul>
 
         </nav>
