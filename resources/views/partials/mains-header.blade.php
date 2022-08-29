@@ -71,11 +71,11 @@
                         <p>{{ $details['quantity'] }}x - <span class="price">Rp. {{number_format($details['price'],2,',','.')}}</span></p>
                     </li>
                     @endforeach
-                @endif
+                    @endif
 
                     <li class="total">
                         <a href="{{ route('cart') }}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                        <span class="float-right"><strong>Total</strong>: Rp. {{number_format($total,2,',','.')}}</span>
+                        <span class="float-right"><strong>Total</strong>: Rp.{{number_format($total,2,',','.')}}</span>
                     </li>
                 </ul>
             </li>

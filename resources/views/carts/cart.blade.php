@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <div class="row my-5">
+        <!--<div class="row my-5">
             <div class="col-lg-6 col-sm-6">
                 <div class="coupon-box">
                     <div class="input-group input-group-sm">
@@ -86,23 +86,45 @@
             </div>
             
             <div class="col-lg-6 col-sm-6">
-                <!--<div class="update-box">
+                <div class="update-box">
                     <input value="Update Cart" type="submit">
-                </div>-->
+                </div>
             </div>
             
-        </div>
+        </div> -->
 
         <div class="row my-5">
             <div class="col-lg-8 col-sm-12"></div>
             <div class="col-lg-4 col-sm-12">
                 <div class="order-box">
+                @if(session('cart'))
+                    <?php $no = 1; ?>
+                    @foreach(session('cart') as $id => $details)
+                    <form action="{{ route('orders') }}" method="POST">
+                    @csrf
+                        <input type="hidden" id="menu_id" name="orders[{{$no}}][menu_id]" value="{{$id}}">
+                        <input type="hidden" id="price" name="orders[{{$no}}][price]" value="{{$details['price']}}">
+                        <input type="hidden" id="qty" name="orders[{{$no}}][qty]" value="{{$details['quantity']}}">
+                        <?php $no++; ?>
+                    @endforeach
+                @endif
                     <h3>Order summary</h3>
                     <div class="d-flex">
-                        <h4>Sub Total</h4>
-                        <div class="ml-auto font-weight-bold"> Rp. {{number_format($total,2,',','.')}} </div>
+                        <h4>Payment Type</h4>
+                        <div class="ml-auto font-weight-bold">
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="payment_type" value="KASIR" >KASIR
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="payment_type" value="QRIS" >QRIS
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex">
+                    <!--<div class="d-flex">
                         <h4>Discount</h4>
                         <div class="ml-auto font-weight-bold"> $ 40 </div>
                     </div>
@@ -118,16 +140,21 @@
                     <div class="d-flex">
                         <h4>Shipping Cost</h4>
                         <div class="ml-auto font-weight-bold"> Free </div>
-                    </div>
+                    </div>-->
                     <hr>
                     <div class="d-flex gr-total">
                         <h5>Grand Total</h5>
-                        <div class="ml-auto h5"> $ 388 </div>
+                        <input type="hidden" id="total" name="total" value="{{$total}}">
+                        <div class="ml-auto h5"> Rp. {{number_format($total,2,',','.')}} </div>
                     </div>
                     <hr> 
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Checkout</a> </div>
+            <div class="col-12 d-flex shopping-box">
+                <button class="ml-auto btn hvr-hover text-white">Place Order</button>
+                <!--<a href="" class="ml-auto btn hvr-hover">Place Order</a>-->
+                </form>
+            </div>
         </div>
 
     </div>
