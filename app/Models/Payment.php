@@ -19,4 +19,9 @@ class Payment extends Model
         'status',
         'generate_qr',
     ];
+
+    public function paymentDetails()
+    {
+        return $this->hasMany(PaymentDetail::class, 'payment_id');
+    }
 }

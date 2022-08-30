@@ -141,4 +141,15 @@ class MenusController extends Controller
         return redirect()->route('menus.index')
                         ->with('success','Menu deleted successfully');
     }
+
+    public function menuList(){
+        $specialMenu = Menu::limit(3)->get();
+        $data['categories'] = Category::get();
+
+        foreach($data['categories'] as $key=>$val){
+            $data['categories'][$key]['menus'] = Category::find($val->id)->menus;
+        }
+
+        return view('menus.lists',compact('data','specialMenu'));
+    }
 }

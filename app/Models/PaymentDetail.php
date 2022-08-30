@@ -17,4 +17,9 @@ class PaymentDetail extends Model
         'qty',
         'price',
     ];
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
 }
