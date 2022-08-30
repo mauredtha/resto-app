@@ -63,9 +63,9 @@ class UsersController extends Controller
         return redirect()->route('login');
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(5);
+        $users = User::latest()->paginate(30);
 
         $data = [
             'users' => $users,
@@ -75,6 +75,10 @@ class UsersController extends Controller
         //dd($data);
 
         return view('users.index',compact('data'));
+
+        // $users = User::where([
+        //     ['name']
+        // ])
     }
 
     

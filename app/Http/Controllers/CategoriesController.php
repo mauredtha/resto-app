@@ -11,7 +11,7 @@ class CategoriesController extends Controller
    
     public function index()
     {
-        $categories = Category::latest()->paginate(5);
+        $categories = Category::latest()->paginate(30);
 
         $data = [
             'categories' => $categories,

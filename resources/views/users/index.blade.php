@@ -42,6 +42,12 @@
                                     <option value="3">Yearly</option>
                                 </select>
                             </div>
+                            <div class=" col">
+                                <input class="form-control" type="text" name="q" placeholder="Search here..." />
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success">Search</button>
+                            </div>
                             <div class="ms-auto">
                                 <div class="text-end upgrade-btn">
                                     <a href="{{ route('users.create') }}" class="btn btn-primary text-white"
@@ -54,6 +60,7 @@
                             <table class="table mb-0 table-hover align-middle text-nowrap">
                                 <thead>
                                     <tr>
+                                        <th class="border-top-0"></th>
                                         <th class="border-top-0">Name</th>
                                         <th class="border-top-0">Username</th>
                                         <th class="border-top-0">Email</th>
