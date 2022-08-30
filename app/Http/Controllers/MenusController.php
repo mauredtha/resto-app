@@ -7,22 +7,41 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MenusController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        $menus = Menu::latest()->paginate(5);
+        // $menus = Menu::latest()->paginate(30);
 
-        $data = [
-            'menus' => $menus,
-            'i' => (request()->input('page', 1) - 1) * 10
-        ];
+        // $data = [
+        //     'menus' => $menus,
+        //     'i' => (request()->input('page', 1) - 1) * 10
+        // ];
         
-        //dd($data);
+        // // dd($data['menus']);
 
-        return view('menus.index',compact('data'));
+        // return view('menus.index',compact('data'));
+
+        $data['q'] = $request->query('q');
+        $data['status'] = $request->query('status');
+
+        $query = Menu::select('menus.*', 'categories.name as category_name')
+            ->join('categories', 'categories.id', '=', 'menus.category_id')
+            ->where(function ($query) use ($data) {
+                $query->where('menus.name', 'like', '%' . $data['q'] . '%');
+            });
+
+        
+        if ($data['status'])
+            $query->where('menus.status', $data['status']);
+
+        $data['menus'] = $query->paginate(30)->withQueryString();
+        // dd($data['menus']);
+        return view('menus.index', compact('data'));
+
     }
 
     

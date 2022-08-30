@@ -73,12 +73,17 @@
                         <!-- title -->
                         <div class="d-md-flex">
                             <div>
-                                <select class="form-select shadow-none">
-                                    <option value="0" selected>Monthly</option>
-                                    <option value="1">Daily</option>
-                                    <option value="2">Weekly</option>
-                                    <option value="3">Yearly</option>
+                                <select class="form-select" name="status">
+                                <option value="">All Status</option>
+                                <option value="on" selected>Active</option>
+                                <option value="off">Inactive</option>
                                 </select>
+                            </div>
+                            <div class=" col">
+                                <input class="form-control" type="text" name="q" placeholder="Search name..." />
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-success">Search</button>
                             </div>
                             <div class="ms-auto">
                                 <div class="text-end upgrade-btn">
@@ -104,10 +109,13 @@
                                 </thead>
                                 <tbody>
                                     <?php if(count($data['menus']) > 0) { ?>
+                                    <?php
+                                        $i = $data['menus']->firstItem();
+                                    ?>
                                     @foreach ($data['menus'] as $key => $value)
                                     <tr>
-                                        <td>{{++$data['i']}}</td>
-                                        <td>{{$value->category_id}}</td>
+                                        <td>{{ $i++ }}</td>
+                                        <td>{{$value->category_name}}</td>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->description}}</td>
                                         <td>{{$value->pict}}</td>
@@ -152,4 +160,5 @@
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
+
 @endsection
