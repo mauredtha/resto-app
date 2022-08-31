@@ -60,7 +60,7 @@
                             <table class="table mb-0 table-hover align-middle text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th class="border-top-0"></th>
+                                        <th class="border-top-0">No</th>
                                         <th class="border-top-0">Name</th>
                                         <th class="border-top-0">Username</th>
                                         <th class="border-top-0">Email</th>

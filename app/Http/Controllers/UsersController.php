@@ -44,10 +44,11 @@ class UsersController extends Controller
         ];
         
         Auth::attempt($data);
+        // dd(in_array(auth()->user()->role, ['ADMIN']));
 
         if (Auth::check()) { // true sekalian session field di users nanti bisa dipanggil via Auth
             //Login Success
-            return redirect()->route('users.index')
+            return redirect()->route('menus.index')
                         ->with('success','Login success!!.');
 
         } else { // false

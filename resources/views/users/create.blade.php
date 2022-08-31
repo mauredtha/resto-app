@@ -45,21 +45,21 @@
                         <div class="form-group">
                             <label class="col-md-12">Full Name</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Johnathan Doe"
+                                <input type="text"
                                     class="form-control form-control-line" name="name" id="name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-12">Username</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="jo_doe"
+                                <input type="text"
                                     class="form-control form-control-line" name="username" id="username">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-md-12">Email</label>
                             <div class="col-md-12">
-                                <input type="email" placeholder="johnathan@admin.com"
+                                <input type="email"
                                     class="form-control form-control-line" name="email"
                                     id="email">
                             </div>
@@ -79,9 +79,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Phone No</label>
+                            <label class="col-md-12">Phone Number</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="123 456 7890"
+                                <input type="number" 
                                     class="form-control form-control-line" name="phone" id="phone">
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                             <label class="col-md-12">Role</label>
                             <div class="col-md-12">
                                 <select class="form-select shadow-none form-control-line" name="role" id="role">
-                                    <option value="">Pilih Role</option>
+                                    <option value="">Select Role</option>
                                     @foreach ($roles as $key => $value)
                                     <option value="{{$value}}">{{$value}}</option>
                                     @endforeach

@@ -46,5 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('categories', CategoriesController::class);
     Route::resource('menus', MenusController::class);
     Route::resource('users', UsersController::class);
+    Route::get('/dashboards', [App\Http\Controllers\DashboardsController::class, 'index']);
     Route::get('search', 'UsersController@index')->name('search');
 });

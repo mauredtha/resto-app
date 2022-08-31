@@ -46,7 +46,7 @@
                             <label class="col-md-12">Category</label>
                             <div class="col-md-12">
                                 <select class="form-select shadow-none form-control-line" name="category_id" id="category_id">
-                                    <option value="">Pilih Kategori</option>
+                                    <option value="">Select Category</option>
                                     @foreach ($categories as $key => $value)
                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                     @endforeach
@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <label for="name" class="col-md-12">Name</label>
                             <div class="col-md-12">
-                                <input type="text" placeholder="Name"
+                                <input type="text"
                                     class="form-control form-control-line" name="name"
                                     id="name">
                             </div>
@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <label class="col-md-12">Price</label>
                             <div class="col-md-12">
-                                <input type="text" name="price" id="price" class="form-control form-control-line">
+                                <input type="number" name="price" id="price" class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">

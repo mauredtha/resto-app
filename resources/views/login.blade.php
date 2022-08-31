@@ -11,7 +11,8 @@
     <meta name="description"
         content="Flexy Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Resto App</title>
+    
+    <title>2 Fat Guys</title>
     @include('partials.styles')
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
@@ -117,7 +118,7 @@
     <div class="login-page">
         
     <div class="form">
-        <h1><center>RESTO APP</center></h1>
+        <h1><center>2 FAT GUYS</center></h1>
         <br>
         <form class="login-form" action="{{ route('login') }}" method="post">
         @csrf
@@ -147,7 +148,6 @@
         <input type="text" placeholder="username" name="username" id="username"/>
         <input type="password" placeholder="password" name="password" id="password"/>
         <button>login</button>
-        <p class="message">Not registered? <a href="#">Create an account</a></p>
         </form>
     </div>
     </div>

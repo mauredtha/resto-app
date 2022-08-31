@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="themes/assets/ico/favicon.ico">
-    <title>Resto App</title>
+    <title>2 Fat Guys</title>
     @include('partials.main-styles')
     
   </head>

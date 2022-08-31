@@ -11,7 +11,7 @@
     <meta name="description"
         content="Flexy Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
-    <title>Resto App</title>
+    <title>2 Fat Guys</title>
     @include('partials.styles')
 </head>
 

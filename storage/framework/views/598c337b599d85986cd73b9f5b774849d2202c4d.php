@@ -433,18 +433,9 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
-    <!-- footer -->
-    <!-- ============================================================== -->
-    <footer class="footer text-center">
-        All Rights Reserved by Flexy Admin. Designed and Developed by <a
-            href="https://www.wrappixel.com">WrapPixel</a>.
-    </footer>
-    <!-- ============================================================== -->
-    <!-- End footer -->
-    <!-- ============================================================== -->
 </div>
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/macbook/Downloads/resto-app-main/resources/views/dashboard/dashboard.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/macbook/Downloads/resto-app-main/resources/views/dashboard/dashboard.blade.php ENDPATH**/ ?>

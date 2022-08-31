@@ -48,10 +48,12 @@
                                 <button class="btn btn-success">Search</button>
                             </div>
                             <div class="ms-auto">
+                                @if(in_array(auth()->user()->role, ['ADMIN']))
                                 <div class="text-end upgrade-btn">
                                     <a href="{{ route('menus.create') }}" class="btn btn-primary text-white"
                                         target="_self">Add Menu</a>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         <!-- title -->
@@ -66,6 +68,7 @@
                                         <th class="border-top-0">Pict</th>
                                         <th class="border-top-0">Price</th>
                                         <th class="border-top-0">Status</th>
+                                        <th class="border-top-0">Created</th>
                                         <th class="border-top-0" colspan="3">Action</th>
                                     </tr>
                                 </thead>
@@ -83,6 +86,7 @@
                                         <td>{{$value->pict}}</td>
                                         <td>{{$value->price}}</td>
                                         <td>{{$value->status}}</td>
+                                        <td>{{$value->created_at}}</td>
                                         <td>
                                         <form action="{{ route('menus.destroy',$value->id) }}" method="POST">
    
@@ -92,8 +96,9 @@
 
                                             @csrf
                                             @method('DELETE')
-
+                                            @if(in_array(auth()->user()->role, ['ADMIN']))
                                             <button type="submit" class="btn btn-danger text-white">Delete</button>
+                                            @endif
                                         </form>
                                         </td>
                                     </tr>
