@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>2 Fat Guys</title>
+    <title>Resto App</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -23,16 +23,16 @@
 </head>
 
 <body>
-    @include('partials.mains-header')
+    @include('partials.buyer-header')
 
     @if(session('success'))
-        <div class="alert alert-success text-center">
-          <h3>{{ session('success') }}</h3>
+        <div class="alert alert-success">
+          {{ session('success') }}
         </div> 
     @endif
     @yield('content')
 
-    @include('partials.mains-footer')
+    @include('partials.buyer-footer')
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 

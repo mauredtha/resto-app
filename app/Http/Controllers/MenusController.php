@@ -142,7 +142,11 @@ class MenusController extends Controller
                         ->with('success','Menu deleted successfully');
     }
 
-    public function menuList(){
+    public function menuList(Request $request){
+        $categoryOrder = $request->segment(2);
+
+        session()->put('categoryOrder', $categoryOrder);
+        
         $specialMenu = Menu::limit(3)->get();
         $data['categories'] = Category::get();
 
@@ -151,5 +155,9 @@ class MenusController extends Controller
         }
 
         return view('menus.lists',compact('data','specialMenu'));
+    }
+
+    public function showCategoryOrder(){
+        return view('buyers.index');
     }
 }

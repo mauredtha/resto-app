@@ -36,12 +36,17 @@ class PaymentsController extends Controller
     
     public function store(Request $request)
     {
+        $categoryOrder = session()->get('categoryOrder');
+        //dd($request);
 
         //dd(date('Y-m-d H:i:s'));
         $payment = new Payment();
         $payment['transaction_date'] = date('Y-m-d H:i:s');
         $payment['payment_type'] = $request->payment_type;
-        $payment['status'] = 'ORDER';
+        $payment['order_type'] = $request->order_type;
+        $payment['cust_name'] = $request->cust_name;
+        $payment['table_no'] = $request->table_no;
+        $payment['status'] = 'UNPAID';
         $payment['total'] = $request->total;
 
         $payment->save();
@@ -68,8 +73,14 @@ class PaymentsController extends Controller
         //dd($payment_details);
 
         //$payment->save();
-        return redirect()->route('resto')
-                        ->with('success','Order successfully');
+        if($request->payment_type == 'KASIR'){
+            return redirect()->route('resto', $categoryOrder)
+                        ->with('success','Berhasil Order, Silakan Melakukan Pembayaran Ke Kasir Sebesar Rp. '.number_format($request->total));
+        }else {
+            return redirect()->route('resto', $categoryOrder)
+                        ->with('success','Berhasil Order, Anda Telah Melakukan Pembayaran Sebesar Rp. '.number_format($request->total).' Melalui QRIS');
+        }
+        
         //return redirect()->back()->with('success', 'Order successfully!');
     }
 

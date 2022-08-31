@@ -7,6 +7,7 @@ use App\Http\Controllers\MenusController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CartsController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,17 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('resto', [MenusController::class, 'menuList'])->name('resto');
-Route::get('resto/cart', [CartsController::class, 'cart'])->name('cart');
-Route::get('resto/add-to-cart/{id}', [CartsController::class, 'addToCart'])->name('add.to.cart');
-Route::patch('resto/update-cart', [CartsController::class, 'update'])->name('update.cart');
-Route::delete('resto/remove-from-cart', [CartsController::class, 'remove'])->name('remove.from.cart');
+Route::get('/qrcode', [QrCodeController::class, 'index']);
+Route::post('download-qr-code/{type}', 'QrCodeController@downloadQRCode')->name('qrcode.download');
+
+Route::get('/order-category', [MenusController::class, 'showCategoryOrder']);
+
+Route::get('resto/{type}', [MenusController::class, 'menuList'])->name('resto');
+// Route::get('resto', [MenusController::class, 'menuList'])->name('resto');
+Route::get('resto/{type}/cart', [CartsController::class, 'cart'])->name('cart');
+Route::get('resto/{type}/add-to-cart/{id}', [CartsController::class, 'addToCart'])->name('add.to.cart');
+Route::patch('resto/{type}/update-cart', [CartsController::class, 'update'])->name('update.cart');
+Route::delete('resto/{type}/remove-from-cart', [CartsController::class, 'remove'])->name('remove.from.cart');
 
 Route::post('resto/orders', [PaymentsController::class, 'store'])->name('orders');
 Route::get('payments', [PaymentsController::class, 'indexKasir'])->name('payments');;

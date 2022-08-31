@@ -77,7 +77,7 @@
                                 <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
                                 <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                             </ul>
-                            <a class="cart" href="{{ route('add.to.cart', $menu->id) }}">Add to Cart</a>
+                            <a class="cart" href="{{ route('add.to.cart', [session('categoryOrder'), $menu->id]) }}">Add to Cart</a>
                         </div>
                     </div>
                     <div class="why-text">

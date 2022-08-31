@@ -27,10 +27,10 @@
                             <tr>
                                 <th>Images</th>
                                 <th>Menu Name</th>
-                                <th>Price</th>
+                                <!--<th>Price</th>-->
                                 <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Remove</th>
+                                <!--<th>Total</th>-->
+                                <th>x</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,19 +45,21 @@
                                     </a>
                                 </td>
                                 <td class="name-pr" data-th="Menu">
-                                    <a href="#">
+                                    <a href="#" style="word-break: break-all;">
                                         {{ $details['name'] }}
+                                        <p>Rp. {{number_format($details['price'])}}</p>
                                     </a>
                                 </td>
-                                <td class="price-pr" data-th="Price">
-                                    <p>Rp. {{number_format($details['price'],2,',','.')}}</p>
-                                </td>
+                                <!--<td class="price-pr" data-th="Price">
+                                    <p>Rp. {{number_format($details['price'])}}</p>
+                                </td>-->
                                 <td class="quantity-box" data-th="Quantity">
+                                    <p>Rp. {{number_format($details['price'] * $details['quantity'])}}</p>
                                     <input type="number" size="4" value="{{ $details['quantity'] }}" min="0" step="1" class="c-input-text qty text quantity update-cart">
                                 </td>
-                                <td class="total-pr" data-th="Subtotal">
+                                <!--<td class="total-pr" data-th="Subtotal">
                                     <p>Rp. {{number_format($details['price'] * $details['quantity'],2,',','.')}}</p>
-                                </td>
+                                </td>-->
                                 <td class="remove-pr remove-from-cart">
                                     <a href="#">
                                 <i class="fas fa-times"></i>
@@ -107,8 +109,22 @@
                         <input type="hidden" id="qty" name="orders[{{$no}}][qty]" value="{{$details['quantity']}}">
                         <?php $no++; ?>
                     @endforeach
+                    <input type="hidden" id="order_type" name="order_type" value="{{session('categoryOrder')}}">
                 @endif
                     <h3>Order summary</h3>
+                    <div class="d-flex">
+                        <h4>Cust Name</h4>
+                        <div class="ml-auto font-weight-bold"> 
+                            <input type="text" name="cust_name" id="cust_name">
+                        </div>
+                    </div>
+                    <hr class="my-1">
+                    <div class="d-flex">
+                        <h4>Table No</h4>
+                        <div class="ml-auto font-weight-bold">
+                            <input type="text" name="table_no" id="table_no">
+                        </div>
+                    </div>
                     <div class="d-flex">
                         <h4>Payment Type</h4>
                         <div class="ml-auto font-weight-bold">
@@ -124,20 +140,13 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="d-flex">
-                        <h4>Discount</h4>
-                        <div class="ml-auto font-weight-bold"> $ 40 </div>
+                   
+                    <div class="qris" id="payment_typeQRIS" style="display:none">
+                        <div class="ml-auto font-weight-bold text-center">
+                        {!! QrCode::size(300)->generate($total) !!}
+                        </div>
                     </div>
-                    <hr class="my-1">
-                    <div class="d-flex">
-                        <h4>Coupon Discount</h4>
-                        <div class="ml-auto font-weight-bold"> $ 10 </div>
-                    </div>
-                    <div class="d-flex">
-                        <h4>Tax</h4>
-                        <div class="ml-auto font-weight-bold"> $ 2 </div>
-                    </div>
-                    <div class="d-flex">
+                     <!--<div class="d-flex">
                         <h4>Shipping Cost</h4>
                         <div class="ml-auto font-weight-bold"> Free </div>
                     </div>-->
@@ -145,13 +154,13 @@
                     <div class="d-flex gr-total">
                         <h5>Grand Total</h5>
                         <input type="hidden" id="total" name="total" value="{{$total}}">
-                        <div class="ml-auto h5"> Rp. {{number_format($total,2,',','.')}} </div>
+                        <div class="ml-auto h5"> Rp. {{number_format($total)}} </div>
                     </div>
                     <hr> 
                 </div>
             </div>
             <div class="col-12 d-flex shopping-box">
-                <button class="ml-auto btn hvr-hover text-white">Place Order</button>
+                <button class="ml-auto btn hvr-hover text-white" id="next">Pesan</button>
                 <!--<a href="" class="ml-auto btn hvr-hover">Place Order</a>-->
                 </form>
             </div>
@@ -164,6 +173,21 @@
 
 @section('scripts')
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        
+        $("input[name$='payment_type']").click(function() {
+            var test = $(this).val();
+            var btn = document.getElementById("next");
+
+            if(test == 'QRIS'){
+                btn.innerText= "Finish";
+            }
+
+            $("div.qris").hide();
+            $("#payment_type" + test).show();
+        });
+    });
   
     $(".update-cart").change(function (e) {
         e.preventDefault();
@@ -171,7 +195,7 @@
         var ele = $(this);
   
         $.ajax({
-            url: '{{ route('update.cart') }}',
+            url: '{{ route('update.cart', session('categoryOrder')) }}',
             method: "patch",
             data: {
                 _token: '{{ csrf_token() }}', 
@@ -191,7 +215,7 @@
   
         if(confirm("Are you sure want to remove?")) {
             $.ajax({
-                url: '{{ route('remove.from.cart') }}',
+                url: '{{ route('remove.from.cart', session('categoryOrder')) }}',
                 method: "DELETE",
                 data: {
                     _token: '{{ csrf_token() }}', 
