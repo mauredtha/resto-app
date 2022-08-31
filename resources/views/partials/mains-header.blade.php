@@ -68,14 +68,14 @@
                     <li>
                         <a href="#" class="photo"><img src="{{ asset('storage/uploads/'.$details['image']) }}" class="cart-thumb" alt="" /></a>
                         <h6><a href="#">{{ $details['name'] }}</a></h6>
-                        <p>{{ $details['quantity'] }}x - <span class="price">Rp. {{number_format($details['price'],2,',','.')}}</span></p>
+                        <p>{{ $details['quantity'] }}x - <span class="price">Rp. {{number_format($details['price'])}}</span></p>
                     </li>
                     @endforeach
                     @endif
 
                     <li class="total">
-                        <a href="{{ route('cart') }}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                        <span class="float-right"><strong>Total</strong>: Rp.{{number_format($total,2,',','.')}}</span>
+                        <a href="{{ route('cart', session('categoryOrder')) }}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                        <span class="float-right"><strong>Total</strong>: Rp.{{number_format($total)}}</span>
                     </li>
                 </ul>
             </li>

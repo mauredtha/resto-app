@@ -16,12 +16,14 @@ class CartsController extends Controller
         return view('carts.cart');
     }
   
-    public function addToCart($id)
+    public function addToCart($type, $id)
     {
+
+        //dd($id);
         $menu = Menu::findOrFail($id);
 
         // dd($menu);
-          
+        $categoryOrder = session()->get('categoryOrder');
         $cart = session()->get('cart', []);
   
         if(isset($cart[$id])) {
@@ -31,11 +33,13 @@ class CartsController extends Controller
                 "name" => $menu->name,
                 "quantity" => 1,
                 "price" => $menu->price,
-                "image" => $menu->pict
+                "image" => $menu->pict,
+                "order_type" => $categoryOrder
             ];
         }
   
         session()->put('cart', $cart);
+
         return redirect()->back()->with('success', 'Menu added to cart successfully!');
     }
   

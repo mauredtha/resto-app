@@ -16,11 +16,14 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
+            $table->string('cust_name');
+            $table->integer('table_no');
             $table->timestamps('transaction_date');
             $table->string('payment_type');
             $table->double('total');
             $table->string('status');
             $table->string('generate_qr');
+            $table->string('order_type');
             $table->timestamps();
         });
     }

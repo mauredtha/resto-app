@@ -23,16 +23,16 @@
 </head>
 
 <body>
-    @include('partials.mains-header')
+    @include('partials.buyer-header')
 
     @if(session('success'))
-        <div class="alert alert-success text-center">
-          <h3>{{ session('success') }}</h3>
+        <div class="alert alert-success">
+          {{ session('success') }}
         </div> 
     @endif
     @yield('content')
 
-    @include('partials.mains-footer')
+    @include('partials.buyer-footer')
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
