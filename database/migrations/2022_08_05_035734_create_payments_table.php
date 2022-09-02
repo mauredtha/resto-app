@@ -24,6 +24,11 @@ return new class extends Migration
             $table->string('status');
             $table->string('generate_qr');
             $table->string('order_type');
+            $table->string('trx_no');
+            $table->string('payment_method');
+            $table->string('note');
+            $table->double('bayar');
+            $table->double('kembalian');
             $table->timestamps();
         });
     }

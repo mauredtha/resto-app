@@ -18,6 +18,14 @@ class Payment extends Model
         'total',
         'status',
         'generate_qr',
+        'cust_name',
+        'table_no',
+        'order_type',
+        'trx_no',
+        'payment_method',
+        'bayar',
+        'kembalian',
+        'note',
     ];
 
     public function paymentDetails()

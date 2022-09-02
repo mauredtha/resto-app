@@ -15,10 +15,10 @@
                         href="{{route('users.index')}}" aria-expanded="false"><i
                             class="mdi mdi-account-network"></i><span class="hide-menu">Users</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="table-basic.html" aria-expanded="false"><i class="mdi mdi-currency-usd"></i><span
+                        href="{{route('payments.index')}}" aria-expanded="false"><i class="mdi mdi-currency-usd"></i><span
                             class="hide-menu">Pembayaran Kasir</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="icon-material.html" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
+                        href="{{route('qris.index')}}" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
                             class="hide-menu">Pembayaran QRIS</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{route('menus.index')}}" aria-expanded="false"><i class="mdi mdi-food"></i><span
@@ -29,10 +29,10 @@
 
                 @else
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="table-basic.html" aria-expanded="false"><i class="mdi mdi-currency-usd"></i><span
+                        href="{{route('payments.index')}}" aria-expanded="false"><i class="mdi mdi-currency-usd"></i><span
                             class="hide-menu">Pembayaran Kasir</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                        href="icon-material.html" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
+                        href="{{route('qris.index')}}" aria-expanded="false"><i class="mdi mdi-qrcode-scan"></i><span
                             class="hide-menu">Pembayaran QRIS</span></a></li>
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                         href="{{route('menus.index')}}" aria-expanded="false"><i class="mdi mdi-food"></i><span

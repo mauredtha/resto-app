@@ -13,19 +13,20 @@ class CartsController extends Controller
     
     public function cart()
     {
+        //dd(session()->get('categoryOrder'));
         return view('carts.cart');
     }
   
     public function addToCart($type, $id)
     {
 
-        //dd($id);
+        //dd($type);
         $menu = Menu::findOrFail($id);
 
         // dd($menu);
         $categoryOrder = session()->get('categoryOrder');
         $cart = session()->get('cart', []);
-  
+
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
@@ -39,6 +40,7 @@ class CartsController extends Controller
         }
   
         session()->put('cart', $cart);
+        session()->put('categoryOrder', $categoryOrder);
 
         return redirect()->back()->with('success', 'Menu added to cart successfully!');
     }

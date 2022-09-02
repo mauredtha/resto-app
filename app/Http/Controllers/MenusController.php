@@ -145,7 +145,11 @@ class MenusController extends Controller
     public function menuList(Request $request){
         $categoryOrder = $request->segment(2);
 
+        //dd($categoryOrder);
+
         session()->put('categoryOrder', $categoryOrder);
+
+        //dd(session()->get('categoryOrder'));
         
         $specialMenu = Menu::limit(3)->get();
         $data['categories'] = Category::get();
@@ -158,6 +162,7 @@ class MenusController extends Controller
     }
 
     public function showCategoryOrder(){
+        //dd(session()->get('categoryOrder'));
         return view('buyers.index');
     }
 }

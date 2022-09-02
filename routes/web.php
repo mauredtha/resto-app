@@ -24,10 +24,10 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/qrcode', [QrCodeController::class, 'index']);
+Route::get('/qrcode', [QrCodeController::class, 'indexQr']);
 Route::post('download-qr-code/{type}', 'QrCodeController@downloadQRCode')->name('qrcode.download');
 
-Route::get('/order-category', [MenusController::class, 'showCategoryOrder']);
+Route::get('/order-category', [MenusController::class, 'showCategoryOrder'])->name('order.category');
 
 Route::get('resto/{type}', [MenusController::class, 'menuList'])->name('resto');
 // Route::get('resto', [MenusController::class, 'menuList'])->name('resto');
@@ -37,7 +37,6 @@ Route::patch('resto/{type}/update-cart', [CartsController::class, 'update'])->na
 Route::delete('resto/{type}/remove-from-cart', [CartsController::class, 'remove'])->name('remove.from.cart');
 
 Route::post('resto/orders', [PaymentsController::class, 'store'])->name('orders');
-Route::get('payments', [PaymentsController::class, 'indexKasir'])->name('payments');;
 
 //Route::get('/', 'AuthController@showFormLogin')->name('login');
 Route::get('login', [UsersController::class, 'showLogin'])->name('login');
@@ -55,4 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', UsersController::class);
     Route::get('/dashboards', [App\Http\Controllers\DashboardsController::class, 'index']);
     Route::get('search', 'UsersController@index')->name('search');
+
+    Route::resource('payments', PaymentsController::class);
+    Route::get('invoice/{id}', [PaymentsController::class, 'print'])->name('invoice');
+    Route::resource('qris', QrCodeController::class);
 });

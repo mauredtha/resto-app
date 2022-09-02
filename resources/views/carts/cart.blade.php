@@ -115,16 +115,19 @@
                     <div class="d-flex">
                         <h4>Cust Name</h4>
                         <div class="ml-auto font-weight-bold"> 
-                            <input type="text" name="cust_name" id="cust_name">
+                            <input type="text" name="cust_name" id="cust_name">{{session('categoryOder')}}
                         </div>
                     </div>
                     <hr class="my-1">
+
+                    @if(session('categoryOrder') == 'DINEIN' or session('categoryOrder') == 'dinein') 
                     <div class="d-flex">
                         <h4>Table No</h4>
                         <div class="ml-auto font-weight-bold">
                             <input type="text" name="table_no" id="table_no">
                         </div>
                     </div>
+                    @endif
                     <div class="d-flex">
                         <h4>Payment Type</h4>
                         <div class="ml-auto font-weight-bold">
@@ -186,6 +189,7 @@
 
             $("div.qris").hide();
             $("#payment_type" + test).show();
+            
         });
     });
   
