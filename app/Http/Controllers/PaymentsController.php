@@ -19,7 +19,7 @@ class PaymentsController extends Controller
         //$data['orders'] = Payment::where('payment_type', '=', 'KASIR')->get();
         $query = Payment::select('payments.*')
             ->where(function ($query) use ($data) {
-                $query->where('payments.payment_type', '=', 'KASIR');
+                $query->where('payments.payment_type', '=', 'KASIR')->orderBy('transaction_date','ASC');
             });
 
         if ($data['status'])
