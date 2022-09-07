@@ -49,7 +49,7 @@ class QrCodeController extends Controller
         $query = Payment::select('payments.*')
             ->where(function ($query) use ($data) {
                 $query->where('payments.payment_type', '=', 'QRIS');
-            });
+            })->orderBy('transaction_date','desc');
 
         if ($data['status'])
             $query->where('payments.status', $data['status']);

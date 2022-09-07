@@ -7,7 +7,7 @@
             <div class="col-lg-12">
                 <h2>Cart</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url()->previous() }}">Menu</a></li>
                     <li class="breadcrumb-item active">Cart</li>
                 </ul>
             </div>
@@ -133,12 +133,12 @@
                         <div class="ml-auto font-weight-bold">
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="payment_type" value="KASIR" >KASIR
+                                    <input type="radio" class="form-check-input" name="payment_type" id="typeKASIR" value="KASIR" >KASIR
                                 </label>
                             </div>
                             <div class="form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="payment_type" value="QRIS" >QRIS
+                                    <input type="radio" class="form-check-input" name="payment_type" id="typeQRIS" value="QRIS" >QRIS
                                 </label>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                 </div>
             </div>
             <div class="col-12 d-flex shopping-box">
-                <button class="ml-auto btn hvr-hover text-white" id="next">Pesan</button>
+                <button class="ml-auto btn hvr-hover text-white" id="next">Order</button>
                 <!--<a href="" class="ml-auto btn hvr-hover">Place Order</a>-->
                 </form>
             </div>
@@ -178,19 +178,42 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+
+        document.getElementById("next").disabled = true;
+
+        
         
         $("input[name$='payment_type']").click(function() {
             var test = $(this).val();
             var btn = document.getElementById("next");
 
-            if(test == 'QRIS'){
-                btn.innerText= "Finish";
-            }
+            var payment_qris = document.getElementById("typeQRIS").checked;
+            var payment_kasir = document.getElementById("typeKASIR").checked;
+            var cust_name = $("#cust_name").val();
+            var table_no = $("#table_no").val();
+
+            // if(test == 'QRIS'){
+            //     btn.innerText= "Finish";
+            // }
 
             $("div.qris").hide();
             $("#payment_type" + test).show();
+
+            if($("#order_type").val() == 'dinein' || $("#order_type").val() == 'DINEIN'){
+                if(cust_name != '' && table_no != '' && ((payment_qris != false) || (payment_kasir != false))){
+                    document.getElementById("next").disabled = false;
+                }
+            }else{
+                if(cust_name != '' && ((payment_qris != false) || (payment_kasir != false))){
+                    document.getElementById("next").disabled = false;
+                }
+            }
             
         });
+
+        
+        
+
     });
   
     $(".update-cart").change(function (e) {
