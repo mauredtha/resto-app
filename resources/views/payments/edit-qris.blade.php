@@ -61,7 +61,7 @@
                             <label class="col-md-12">Table No</label>
                             <div class="col-md-12">
                                 <input type="text"
-                                    class="form-control form-control-line" name="table_no" id="table_no" value="{{$data['orders'][0]->table_no}}">
+                                    class="form-control form-control-line" name="table_no" id="table_no" value="@if($data['orders'][0]->table_no) {{$data['orders'][0]->table_no}} @else 0 @endif">
                             </div>
                         </div>
                         <div class="form-group">

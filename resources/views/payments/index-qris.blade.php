@@ -84,7 +84,9 @@
                                         <td>{{ $value->trx_no }}</td>
                                         <td>{{$value->transaction_date}}</td>
                                         <td>{{$value->cust_name}}</td>
-                                        <td>{{$value->table_no}}</td>
+                                        <td> @if($value->table_no) 
+                                                {{$value->table_no}}
+                                            @else 0 @endif</td>
                                         <td>{{$value->total}}</td>
                                         <td>{{$value->payment_method}}</td>
                                         <td>{{$value->status}}</td>
