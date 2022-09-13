@@ -8,7 +8,7 @@
                 <div class="title-all text-center">
 					<a href="{{route('menus.store')}}"></a>
                     <h1>Scan To See Our Menu</h1>
-					{!! QrCode::size(300)->generate('localhost:8000/resto') !!}
+					{!! QrCode::size(300)->generate('localhost:8000/order-category') !!}
                 </div>
             </div>
         </div>

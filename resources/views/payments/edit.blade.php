@@ -60,8 +60,9 @@
                         <div class="form-group">
                             <label class="col-md-12">Table No</label>
                             <div class="col-md-12">
+                                
                                 <input type="text"
-                                    class="form-control form-control-line" name="table_no" id="table_no" value="{{$payment->table_no}}">
+                                    class="form-control form-control-line" name="table_no" id="table_no" value="@if($payment->table_no) {{$payment->table_no}} @else 0 @endif">
                             </div>
                         </div>
                         <div class="form-group">

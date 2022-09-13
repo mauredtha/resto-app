@@ -20,7 +20,7 @@ class PaymentsController extends Controller
         $query = Payment::select('payments.*')
             ->where(function ($query) use ($data) {
                 $query->where('payments.payment_type', '=', 'KASIR');
-            });
+            })->orderBy('transaction_date','desc');
 
         if ($data['status'])
             $query->where('payments.status', $data['status']);
@@ -131,11 +131,13 @@ class PaymentsController extends Controller
         //$payment->save();
         if($request->payment_type == 'KASIR'){
             // return redirect()->route('resto', $categoryOrder)
-            return redirect()->route('order.category')
+            // return redirect()->route('order.category')
+            return redirect()->route('order.list', $payment->id)
                         ->with('success','Berhasil Order, Silakan Melakukan Pembayaran Ke Kasir Sebesar Rp. '.number_format($request->total));
         }else {
             //return redirect()->route('resto', $categoryOrder)
-            return redirect()->route('order.category')
+            // return redirect()->route('order.category')
+            return redirect()->route('order.list', $payment->id)
                         ->with('success','Berhasil Order, Anda Telah Melakukan Pembayaran Sebesar Rp. '.number_format($request->total).' Melalui QRIS');
         }
         
@@ -143,9 +145,20 @@ class PaymentsController extends Controller
     }
 
     
-    public function show(Payment $payment)
+    public function show($payment)
     {
-        //
+        $data['orders'] = Payment::where('id', '=', $payment)->get();
+        $data['order_details'] = Payment::find($payment)->paymentDetails;
+
+        foreach($data['order_details'] as $key=>$val){
+            $menu = Menu::where('id', '=', $val->menu_id)->get();
+            $data['order_details'][$key]['name'] = $menu[0]->name;
+            $data['order_details'][$key]['pict'] = $menu[0]->pict;
+        }
+
+        //dd($data);
+
+        return view('payments.show',compact(['payment', 'data']));
     }
 
     

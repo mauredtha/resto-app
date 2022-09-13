@@ -10,6 +10,7 @@
                 Invoice
                 <strong>{{$data['orders'][0]->trx_no}}</strong> 
                 <span class="float-right"> <strong>Status:</strong> {{$data['orders'][0]->status}}</span>
+                - Table No <strong>@if($data['orders'][0]->table_no) {{$data['orders'][0]->table_no}} @else 0 @endif</strong>
         </div>
 
         <div class="card-body">
@@ -19,7 +20,7 @@
                     <div><strong>{{$data['orders'][0]->cust_name}}</strong></div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h6 class="mb-3">Transaction Date:</h6>
                     <div>
                     <strong>{{$data['orders'][0]->transaction_date}}</strong>

@@ -37,6 +37,7 @@ Route::patch('resto/{type}/update-cart', [CartsController::class, 'update'])->na
 Route::delete('resto/{type}/remove-from-cart', [CartsController::class, 'remove'])->name('remove.from.cart');
 
 Route::post('resto/orders', [PaymentsController::class, 'store'])->name('orders');
+Route::get('resto/orders/{id}', [PaymentsController::class, 'show'])->name('order.list');
 
 //Route::get('/', 'AuthController@showFormLogin')->name('login');
 Route::get('login', [UsersController::class, 'showLogin'])->name('login');
