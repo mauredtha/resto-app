@@ -50,14 +50,6 @@
                             <div class="col">
                                 <button class="btn btn-success">Search</button>
                             </div>
-                            <div class="ms-auto">
-                                @if(in_array(auth()->user()->role, ['ADMIN']))
-                                <div class="text-end upgrade-btn">
-                                    <a href="{{ route('menus.create') }}" class="btn btn-primary text-white"
-                                        target="_self">Add Menu</a>
-                                </div>
-                                @endif
-                            </div>
                         </div>
                         <!-- title -->
                         <div class="table-responsive">
