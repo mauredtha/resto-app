@@ -88,18 +88,11 @@
                                         <td>{{$value->status}}</td>
                                         <td>{{$value->created_at}}</td>
                                         <td>
-                                        <form action="{{ route('menus.destroy',$value->id) }}" method="POST">
    
                                             <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a>
 
                                             <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
 
-                                            @csrf
-                                            @method('DELETE')
-                                            @if(in_array(auth()->user()->role, ['ADMIN']))
-                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
-                                            @endif
-                                        </form>
                                         </td>
                                     </tr>
                                     @endforeach

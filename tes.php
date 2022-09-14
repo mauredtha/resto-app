@@ -218,6 +218,28 @@
 
 
 
+    <!-- NITIP -->
+    <form action="{{ route('menus.destroy',$value->id) }}" method="POST">
+   
+      <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a>
+
+      <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
+
+      @csrf
+      @method('DELETE')
+      @if(in_array(auth()->user()->role, ['ADMIN']))
+      <button type="submit" class="btn btn-danger text-white">Delete</button>
+      @endif
+    </form>
+
+    @if ($menu->status == 'on')
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked name="status" value="{{$menu->status}}">
+    @else
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status" value="{{$menu->status}}">
+    @endif
+
+    <!-- NITIP -->
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -36,6 +36,14 @@ class CategoriesController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
+
+        if(empty($request->status)){
+            $request->status = 'off';
+        }else{
+            $request->status = $request->status;
+        }
+
+        // dd($request->all());
       
         Category::create($request->all());
        
@@ -61,8 +69,16 @@ class CategoriesController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
+
+        $data['name'] = $request->name;
+
+        if(empty($request->status)){
+            $data['status'] = 'off';
+        }else {
+            $data['status'] = $request->status;
+        }
       
-        $category->update($request->all());
+        $category->update($data); //$request->all()
       
         return redirect()->route('categories.index')
                         ->with('success','Category updated successfully');

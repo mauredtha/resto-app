@@ -82,10 +82,12 @@
                         </div>
                         
                         <div class="form-group">
-                        <label class="col-md-12">Status</label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status">
+                            <label class="col-md-12">Status</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="status">
+                            </div>
                         </div>
+
                         <br>
                         <div class="form-group">
                             <div class="col-sm-12">

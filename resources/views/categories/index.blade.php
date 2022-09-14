@@ -94,6 +94,7 @@
                                     <tr>
                                         <th class="border-top-0">No</th>
                                         <th class="border-top-0">Name</th>
+                                        <th class="border-top-0">Status</th>
                                         <th class="border-top-0" colspan="3">Action</th>
                                     </tr>
                                 </thead>
@@ -103,18 +104,13 @@
                                     <tr>
                                         <td>{{++$data['i']}}</td>
                                         <td>{{$value->name}}</td>
+                                        <td>{{$value->status}}</td>
                                         <td>
-                                        <form action="{{ route('categories.destroy',$value->id) }}" method="POST">
    
                                             <a class="btn btn-info text-white" href="{{ route('categories.show',$value->id) }}">Show</a>
 
                                             <a class="btn btn-primary text-white" href="{{ route('categories.edit',$value->id) }}">Edit</a>
 
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
-                                        </form>
                                         </td>
                                     </tr>
                                     @endforeach

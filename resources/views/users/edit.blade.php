@@ -98,6 +98,15 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-12">Status</label>
+                            <div class="form-check form-switch">
+
+                                <input class="form-check-input" type="checkbox" @if($user->status == 'on') id="flexSwitchCheckChecked" checked @else id="flexSwitchCheckDefault" @endif  name="status" value="{{$user->status}}">
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <div class="col-sm-12">
                                 <button class="btn btn-success text-white">Submit</button>
                             </div>
@@ -118,4 +127,20 @@
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->
+@endsection
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("input[name$='status']").click(function() {
+            var status = $("input[name$='status']").val();
+            
+            if(status == 'off'){
+                $("input[name$='status']").attr('value','on');
+            }else{
+                $("input[name$='status']").attr('value','off');
+            }
+        })
+    });
+</script>
 @endsection

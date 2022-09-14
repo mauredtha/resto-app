@@ -58,7 +58,6 @@ class MenusController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'status' => 'required',
             'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
         ]);
 
@@ -69,11 +68,18 @@ class MenusController extends Controller
             $data['pict'] = $fileName;
         }
 
+        if(empty($request->status)){
+            $data['status'] = 'off';
+        }else{
+            $data['status'] = $request->status;
+        }
+
         $data['name'] = $request->name;
         $data['description'] = $request->description;
         $data['category_id'] = $request->category_id;
         $data['price'] = $request->price;
-        $data['status'] = $request->status;
+        
+        //dd($data);
         
         Menu::create($data); //$request->all()
        
@@ -97,11 +103,11 @@ class MenusController extends Controller
     
     public function update(Request $request, Menu $menu)
     {
+        //dd($request);
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'status' => 'required',
             'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
         ]);
 
@@ -121,8 +127,15 @@ class MenusController extends Controller
         $data['description'] = $request->description;
         $data['category_id'] = $request->category_id;
         $data['price'] = $request->price;
-        $data['status'] = $request->status;
         $data['updated_at'] = date('Y-m-d H:i:s');
+
+        if(empty($request->status)){
+            $data['status'] = 'off';
+        }else {
+            $data['status'] = $request->status;
+        }
+        
+        // dd($data);
       
         $menu->update($data); //$request->all()
       

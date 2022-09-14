@@ -65,6 +65,7 @@
                                         <th class="border-top-0">Username</th>
                                         <th class="border-top-0">Email</th>
                                         <th class="border-top-0">Role</th>
+                                        <th class="border-top-0">Status</th>
                                         <th class="border-top-0" colspan="3">Action</th>
                                     </tr>
                                 </thead>
@@ -77,18 +78,13 @@
                                         <td>{{$value->username}}</td>
                                         <td>{{$value->email}}</td>
                                         <td>{{$value->role}}</td>
+                                        <td>{{$value->status}}</td>
                                         <td>
-                                        <form action="{{ route('users.destroy',$value->id) }}" method="POST">
    
                                             <a class="btn btn-info text-white" href="{{ route('users.show',$value->id) }}">Show</a>
 
                                             <a class="btn btn-primary text-white" href="{{ route('users.edit',$value->id) }}">Edit</a>
 
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger text-white">Delete</button>
-                                        </form>
                                         </td>
                                     </tr>
                                     @endforeach

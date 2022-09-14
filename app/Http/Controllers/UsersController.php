@@ -128,6 +128,12 @@ class UsersController extends Controller
         $data['password'] = Hash::make($request->password);
         $data['role'] = $request->role;
         $data['phone'] = $request->phone;
+        
+        if(empty($request->status)){
+            $data['status'] = 'off';
+        }else{
+            $data['status'] = $request->status;
+        }
 
         User::create($data); //$request->all()
        
@@ -167,6 +173,13 @@ class UsersController extends Controller
         $data['password'] = Hash::make($request->password);
         $data['role'] = $request->role;
         $data['phone'] = $request->phone;
+
+        if(empty($request->status)){
+            $data['status'] = 'off';
+        }else {
+            $data['status'] = $request->status;
+        }
+
         $data['updated_at'] = date('Y-m-d H:i:s');
       
         $user->update($data); //$request->all()
