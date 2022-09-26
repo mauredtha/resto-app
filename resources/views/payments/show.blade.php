@@ -94,13 +94,7 @@
                         </div>
                     </div>
                    
-                    @if($data['orders'][0]->payment_type == 'QRIS')
-                    <div class="qris" id="payment_typeQRIS">
-                        <div class="ml-auto font-weight-bold text-center">
-                        {!! QrCode::size(300)->generate($total) !!}
-                        </div>
-                    </div>
-                    @endif
+
                     <hr>
                     <div class="d-flex gr-total">
                         <h5>Grand Total</h5>

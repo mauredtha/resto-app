@@ -68,6 +68,8 @@
                         <div class="form-group">
                             <label class="col-md-12">Password</label>
                             <div class="col-md-12">
+                                <input type="hidden"
+                                        class="form-control form-control-line" name="old_password" id="old_password" value="{{$user->password}}">
                                 <input type="password"
                                     class="form-control form-control-line" name="password" id="password" value="{{$user->password}}">
                             </div>

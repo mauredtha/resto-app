@@ -165,7 +165,8 @@ class MenusController extends Controller
         //dd(session()->get('categoryOrder'));
         
         $specialMenu = Menu::limit(3)->get();
-        $data['categories'] = Category::get();
+        $data['categories'] = Category::where(['status'=>'on'])->get();
+       
 
         foreach($data['categories'] as $key=>$val){
             $data['categories'][$key]['menus'] = Category::find($val->id)->menus;

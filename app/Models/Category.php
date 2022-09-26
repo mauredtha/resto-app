@@ -18,6 +18,6 @@ class Category extends Model
 
     public function menus()
     {
-        return $this->hasMany(Menu::class, 'category_id');
+        return $this->hasMany(Menu::class, 'category_id')->where('status', 'on');
     }
 }

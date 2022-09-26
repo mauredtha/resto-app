@@ -158,6 +158,7 @@ class UsersController extends Controller
     
     public function update(Request $request, User $user)
     {
+        //dd($request);
         $request->validate([
             'name' => 'required',
             'username' => 'required',
@@ -166,11 +167,16 @@ class UsersController extends Controller
             'password' => 'required|confirmed',
             'role' => 'required',
             ]);
-
+        
+        if($request->old_password == $request->password){
+            $data['password'] = $request->old_password;
+        }else {
+            $data['password'] = Hash::make($request->password);
+        }
         $data['name'] = ucwords(strtolower($request->name));
         $data['username'] = $request->username;
         $data['email'] = strtolower($request->email);
-        $data['password'] = Hash::make($request->password);
+        //$data['password'] = Hash::make($request->password);
         $data['role'] = $request->role;
         $data['phone'] = $request->phone;
 
