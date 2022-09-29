@@ -41,6 +41,7 @@ class UsersController extends Controller
         $data = [
             'username'     => $request->input('username'),
             'password'  => $request->input('password'),
+            'status' => 'on',
         ];
         
         Auth::attempt($data);
@@ -55,7 +56,7 @@ class UsersController extends Controller
 
             //Login Fail
             return redirect()->route('login')
-                        ->with('error','Username or Password is wrong.');
+                        ->with('error','Username or Password is wrong or Status is not active.');
         }
     }
 
