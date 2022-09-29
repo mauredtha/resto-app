@@ -77,6 +77,22 @@ class QrCodeController extends Controller
         return view('payments.edit-qris',compact(['payment', 'data']));
     }
 
+    public function show($payment)
+    {
+        $data['orders'] = Payment::where('id', '=', $payment)->get();
+        $data['order_details'] = Payment::find($payment)->paymentDetails;
+
+        foreach($data['order_details'] as $key=>$val){
+            $menu = Menu::where('id', '=', $val->menu_id)->get();
+            $data['order_details'][$key]['name'] = $menu[0]->name;
+            $data['order_details'][$key]['pict'] = $menu[0]->pict;
+        }
+
+        //dd($data);
+
+        return view('payments.detail',compact(['payment', 'data']));
+    }
+
     public function print($payment){
         $data['orders'] = Payment::where('id', '=', $payment)->get();
         $data['order_details'] = Payment::find($payment)->paymentDetails;

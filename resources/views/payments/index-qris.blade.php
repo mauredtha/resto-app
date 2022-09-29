@@ -84,10 +84,8 @@
                                         <td>{{$value->status}}</td>
                                         <td>
                                         <a class="btn btn-info text-white" href="{{ route('invoice',$value->id) }}">Print</a>
-
-                                        @if ($value->status == 'UNPAID')
-                                        <a class="btn btn-primary text-white" href="{{ route('qris.edit', $value->id) }}">Edit</a>
-                                        @endif
+                                        <a class="btn btn-primary text-white" href="{{ route('qris.show', $value->id) }}">Detail</a>
+                                        
                                         </td>
                                     </tr>
                                     @endforeach

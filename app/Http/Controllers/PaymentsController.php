@@ -50,7 +50,13 @@ class PaymentsController extends Controller
         $payment['order_type'] = $request->order_type;
         $payment['cust_name'] = $request->cust_name;
         $payment['table_no'] = $request->table_no;
-        $payment['status'] = 'UNPAID';
+
+        if($request->payment_type == 'QRIS'){
+            $payment['status'] = 'PAID';
+        }else{
+            $payment['status'] = 'UNPAID';
+        }
+        
         $payment['total'] = $request->total;
 
         if($request->order_type == 'DINEIN'){
