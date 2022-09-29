@@ -35,28 +35,28 @@
                         <label class="col-md-12">Transaction Date</label>
                         <div class="col-md-12">
                             <input type="text"
-                                class="form-control form-control-line" name="transaction_date" id="transaction_date" value="{{$data['orders'][0]->transaction_date}}">
+                                class="form-control form-control-line" name="transaction_date" readonly="readonly" id="transaction_date" value="{{$data['orders'][0]->transaction_date}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-12">Cust Name</label>
                         <div class="col-md-12">
                             <input type="text"
-                                class="form-control form-control-line" name="cust_name" id="cust_name" value="{{$data['orders'][0]->cust_name}}">
+                                class="form-control form-control-line" name="cust_name" id="cust_name" readonly="readonly" value="{{$data['orders'][0]->cust_name}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-12">Table No</label>
                         <div class="col-md-12">
                             <input type="text"
-                                class="form-control form-control-line" name="table_no" id="table_no" value="@if($data['orders'][0]->table_no) {{$data['orders'][0]->table_no}} @else 0 @endif">
+                                class="form-control form-control-line" name="table_no" id="table_no" readonly="readonly" value="@if($data['orders'][0]->table_no) {{$data['orders'][0]->table_no}} @else 0 @endif">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-12">Order Type</label>
                         <div class="col-md-12">
                             <input type="text"
-                                class="form-control form-control-line" name="order_type" id="order_type" value="{{$data['orders'][0]->order_type}}">
+                                class="form-control form-control-line" name="order_type" id="order_type" readonly="readonly" value="{{$data['orders'][0]->order_type}}">
                         </div>
                     </div>
 
