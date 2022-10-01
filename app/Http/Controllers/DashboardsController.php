@@ -22,16 +22,25 @@ class DashboardsController extends Controller
             ->orderBy('day')
             ->get();
         
-            $data = [];
+        $per_day = Payment::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(created_at) as day"))
+            ->where('created_at', '>', Carbon::today()->subDay(6))
+            ->groupBy('day')
+            ->get();
+            
+        $data = [];
 
-            foreach($record as $row) {
-                $data['label'][] = $row->day_name;
-                $data['data'][] = (int) $row->count;
-            }
+        foreach($record as $row) {
+            $data['label'][] = $row->day_name;
+            $data['data'][] = (int) $row->count;
+        }
 
-            $data['chart_data'] = json_encode($data);
-            dd($data);
-            return view('dashboard.dashboard', $data);
+        foreach($per_day as $row) {
+            $data['chart_day'] = (int) $row->count;
+        }
+
+        $data['chart_data'] = json_encode($data);
+        // dd($data);
+        return view('dashboard.dashboard', $data);
     }
 
     public function generateDates(Carbon $startDate, Carbon $endDate, $format = 'Y-m-d')

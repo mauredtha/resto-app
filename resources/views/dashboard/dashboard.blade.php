@@ -89,7 +89,7 @@
                                 <i class="mdi mdi-cart-outline fs-4" ></i>
                             </span>
                             <div class="ms-3">
-                                <font size="7" color="black" class="mb-0 fw-bold">5</font>
+                                <font size="7" color="black" class="mb-0 fw-bold">{{$data[0]}}</font>
                             </div>
                         </div>
                     </div>
