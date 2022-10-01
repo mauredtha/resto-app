@@ -107,7 +107,7 @@
                                         <td>{{$value->status}}</td>
                                         <td>
    
-                                            <a class="btn btn-info text-white" href="{{ route('categories.show',$value->id) }}">Show</a>
+                                            <!-- <a class="btn btn-info text-white" href="{{ route('categories.show',$value->id) }}">Show</a> -->
 
                                             <a class="btn btn-primary text-white" href="{{ route('categories.edit',$value->id) }}">Edit</a>
 

@@ -81,7 +81,7 @@
                                         <td>{{$value->status}}</td>
                                         <td>
    
-                                            <a class="btn btn-info text-white" href="{{ route('users.show',$value->id) }}">Show</a>
+                                            <!-- <a class="btn btn-info text-white" href="{{ route('users.show',$value->id) }}">Show</a> -->
 
                                             <a class="btn btn-primary text-white" href="{{ route('users.edit',$value->id) }}">Edit</a>
 

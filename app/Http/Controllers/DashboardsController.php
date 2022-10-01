@@ -30,7 +30,7 @@ class DashboardsController extends Controller
             }
 
             $data['chart_data'] = json_encode($data);
-            // dd($data);
+            dd($data);
             return view('dashboard.dashboard', $data);
     }
 

@@ -89,7 +89,7 @@
                                         <td>{{$value->created_at}}</td>
                                         <td>
    
-                                            <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a>
+                                            <!-- <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a> -->
 
                                             <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
 
