@@ -61,11 +61,14 @@ class PaymentsController extends Controller
 
         if($request->order_type == 'DINEIN'){
             $findlastNoTrx = Payment::where('trx_no', 'LIKE', '%DI%')->where('transaction_date', 'LIKE', '%'.date('Y-m').'%')->orderBy('trx_no', 'desc')->limit(1)->get();
-            $lastNoTrx = $findlastNoTrx[0]->trx_no;
+
+            //dd($findlastNoTrx);
+            
 
             if(empty($lastNoTrx)) {
-                $trx_no = 'DI'.date('ym').'0001';
+                $trx_no = 'DI'.date('ym').'00001';
             }else {
+                $lastNoTrx = $findlastNoTrx[0]->trx_no;
                 $order = substr($findlastNoTrx[0]->trx_no,6,5)+1;
                 //dd($findlastNoTrx[0]->trx_no);
                 //dd(substr($findlastNoTrx[0]->trx_no,6,5));
@@ -85,11 +88,12 @@ class PaymentsController extends Controller
         } else {
 
             $findlastNoTrx = Payment::where('trx_no', 'LIKE', '%TA%')->where('transaction_date', 'LIKE', '%'.date('Y-m').'%')->orderBy('trx_no', 'desc')->limit(1)->get();
-            $lastNoTrx = $findlastNoTrx[0]->trx_no;
+            
 
             if(empty($lastNoTrx)) {
-                $trx_no = 'TA'.date('ym').'0001';
+                $trx_no = 'TA'.date('ym').'00001';
             }else {
+                $lastNoTrx = $findlastNoTrx[0]->trx_no;
                 $order = substr($findlastNoTrx[0]->trx_no,6,5)+1;
                 //dd($findlastNoTrx[0]->trx_no);
                 //dd(substr($findlastNoTrx[0]->trx_no,6,5));
