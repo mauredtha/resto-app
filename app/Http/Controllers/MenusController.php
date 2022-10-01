@@ -108,7 +108,7 @@ class MenusController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
+            //'pict' => 'required|mimes:png,jpg,jpeg,PNG,JPG,JPEG|max:2048',
         ]);
 
         if($request->file('pict')){
