@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\User;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,20 +69,23 @@ class UsersController extends Controller
     
     public function index(Request $request)
     {
-        $users = User::latest()->paginate(30);
+        $data['q'] = $request->query('q');
+        $data['status'] = $request->query('status');
+        $data['statuses'] = Status::where('id', 'on')->orWhere('id', 'off')->get();
 
-        $data = [
-            'users' => $users,
-            'i' => (request()->input('page', 1) - 1) * 10
-        ];
+        $query = User::select('users.*')
+            ->where(function ($query) use ($data) {
+                $query->where('users.name', 'like', '%' . $data['q'] . '%');
+            });
+
+        if ($data['status'])
+            $query->where('users.status', $data['status']);
+
+        $data['users'] = $query->paginate(30)->withQueryString();
         
-        //dd($data);
+        // dd($data);
 
-        return view('users.index',compact('data'));
-
-        // $users = User::where([
-        //     ['name']
-        // ])
+        return view('users.index',$data);
     }
 
     

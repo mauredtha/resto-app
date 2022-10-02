@@ -70,56 +70,71 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- title -->
-                        <div class="d-md-flex">
-                            <div>
-                                <select class="form-select shadow-none">
-                                    <option value="0" selected>Monthly</option>
-                                    <option value="1">Daily</option>
-                                    <option value="2">Weekly</option>
-                                    <option value="3">Yearly</option>
-                                </select>
-                            </div>
-                            <div class="ms-auto">
-                                <div class="text-end upgrade-btn">
-                                    <a href="{{ route('categories.create') }}" class="btn btn-primary text-white"
-                                        target="_self">Add Categories</a>
+                        <form class="row">
+                            <!-- title -->
+                            <div class="d-md-flex">
+                                <div>
+                                    <select class="form-select" name="status">
+                                        <option value="">All Status</option>
+                                        @foreach($statuses as $statuses)
+                                        @if($statuses->id==$status)
+                                        <option value="{{ $statuses->id }}" selected>{{ $statuses->name }}</option>
+                                        @else
+                                        <option value="{{ $statuses->id }}">{{ $statuses->name }}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search name..." />
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success">Search</button>
+                                </div>
+                                <div class="ms-auto">
+                                    <div class="text-end upgrade-btn">
+                                        <a href="{{ route('categories.create') }}" class="btn btn-primary text-white"
+                                            target="_self">Add Categories</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- title -->
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-hover align-middle text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th class="border-top-0">No</th>
-                                        <th class="border-top-0">Name</th>
-                                        <th class="border-top-0">Status</th>
-                                        <th class="border-top-0" colspan="3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if(count($data['categories']) > 0) { ?>
-                                    @foreach ($data['categories'] as $key => $value)
-                                    <tr>
-                                        <td>{{++$data['i']}}</td>
-                                        <td>{{$value->name}}</td>
-                                        <td>{{$value->status}}</td>
-                                        <td>
-   
-                                            <!-- <a class="btn btn-info text-white" href="{{ route('categories.show',$value->id) }}">Show</a> -->
+                            <!-- title -->
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-hover align-middle text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">No</th>
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">Status</th>
+                                            <th class="border-top-0" colspan="3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if(count($categories) > 0) { ?>
+                                        <?php
+                                            $i = $categories->firstItem();
+                                        ?>
+                                        @foreach ($categories as $key => $value)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{$value->name}}</td>
+                                            <td>{{$value->status}}</td>
+                                            <td>
 
-                                            <a class="btn btn-primary text-white" href="{{ route('categories.edit',$value->id) }}">Edit</a>
+                                                <!-- <a class="btn btn-info text-white" href="{{ route('categories.show',$value->id) }}">Show</a> -->
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    <?php } else { ?>
-                                        <td colspan="5"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                                <a class="btn btn-primary text-white" href="{{ route('categories.edit',$value->id) }}">Edit</a>
+
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        <?php } else { ?>
+                                            <td colspan="5"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

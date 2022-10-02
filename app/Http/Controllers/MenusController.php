@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Category;
 use App\Models\Menu;
 use Illuminate\Http\Request;
@@ -14,19 +15,12 @@ class MenusController extends Controller
     
     public function index(Request $request)
     {
-        // $menus = Menu::latest()->paginate(30);
-
-        // $data = [
-        //     'menus' => $menus,
-        //     'i' => (request()->input('page', 1) - 1) * 10
-        // ];
-        
-        // // dd($data['menus']);
-
-        // return view('menus.index',compact('data'));
 
         $data['q'] = $request->query('q');
         $data['status'] = $request->query('status');
+        $data['statuses'] = Status::where('id', 'on')->orWhere('id', 'off')->get();
+
+        // dd($data);
 
         $query = Menu::select('menus.*', 'categories.name as category_name')
             ->join('categories', 'categories.id', '=', 'menus.category_id')
@@ -39,7 +33,7 @@ class MenusController extends Controller
             $query->where('menus.status', $data['status']);
 
         $data['menus'] = $query->paginate(30)->withQueryString();
-        dd($data);
+        // dd($data);
         return view('menus.index', $data);
 
     }

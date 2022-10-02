@@ -32,80 +32,91 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- title -->
-                        <div class="d-md-flex">
-                            <div>
-                                <select class="form-select" name="status">
-                                <option value="">All Status</option>
-                                <option value="PAID" selected>PAID</option>
-                                <option value="UNPAID">UNPAID</option>
-                                </select>
-                            </div>
-                            <div class=" col">
-                                <input class="form-control" type="text" name="q" placeholder="Search customer name..." />
-                            </div>
-                            <div class=" col">
-                                <input class="form-control" type="text" name="datefilter" id="start_date" placeholder="Select Start & End Date" />
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-success">Search</button>
-                            </div>
-                        </div>
-                        <!-- title -->
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-hover align-middle text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th class="border-top-0">No Transaksi</th>
-                                        <th class="border-top-0">Tgl</th>
-                                        <th class="border-top-0">Nama</th>
-                                        <th class="border-top-0">No Meja</th>
-                                        <th class="border-top-0">Total Pembayaran</th>
-                                        <th class="border-top-0">Metode Pembayaran</th>
-                                        <th class="border-top-0">Status</th>
-                                        <th class="border-top-0" colspan="3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if(count($data['orders']) > 0) { ?>
-                                    <?php
-                                        $i = $data['orders']->firstItem();
-                                    ?>
-                                    @foreach ($data['orders'] as $key => $value)
-                                    <tr>
-                                        <td>{{ $value->trx_no }}</td>
-                                        <td>{{$value->transaction_date}}</td>
-                                        <td>{{$value->cust_name}}</td>
-                                        <td>
-                                            @if($value->table_no) 
-                                                {{$value->table_no}}
-                                            @else 0 @endif
-                                        </td>
-                                        <td>{{$value->total}}</td>
-                                        <td>{{$value->payment_method}}</td>
-                                        <td>{{$value->status}}</td>
-                                        <td>
-                                        <a class="btn btn-info text-white" href="{{ route('invoice',$value->id) }}">Print</a>
-
-                                        @if ($value->status == 'UNPAID')
-                                        <a class="btn btn-primary text-white" href="{{ route('payments.edit', $value->id) }}">Edit</a>
+                        <form class="row">
+                            <!-- title -->
+                            <div class="d-md-flex">
+                                <div>
+                                    <select class="form-select" name="status">
+                                        <option value="">All Status</option>
+                                        @foreach($statuses as $statuses)
+                                        @if($statuses->id==$status)
+                                        <option value="{{ $statuses->id }}" selected>{{ $statuses->name }}</option>
+                                        @else
+                                        <option value="{{ $statuses->id }}">{{ $statuses->name }}</option>
                                         @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    <?php } else { ?>
-                                    <tr>
-                                        <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class=" col">
+                                    <!-- <input class="form-control" type="text" name="datefilter" id="start_date" placeholder="Select Start & End Date" /> -->
+                                    <div class="input-group">
+                                        <input class="form-control" type="date" name="start" value="{{ $start }}" />
+                                        <input class="form-control" type="date" name="end" value="{{ $end }}" />
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search customer name..." />
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success">Search</button>
+                                </div>
+                            </div>
+                            <!-- title -->
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-hover align-middle text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">No Transaksi</th>
+                                            <th class="border-top-0">Tgl</th>
+                                            <th class="border-top-0">Nama</th>
+                                            <th class="border-top-0">No Meja</th>
+                                            <th class="border-top-0">Total Pembayaran</th>
+                                            <th class="border-top-0">Metode Pembayaran</th>
+                                            <th class="border-top-0">Status</th>
+                                            <th class="border-top-0" colspan="3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if(count($orders) > 0) { ?>
+                                        <?php
+                                            $i = $orders->firstItem();
+                                        ?>
+                                        @foreach ($orders as $key => $value)
+                                        <tr>
+                                            <td>{{ $value->trx_no }}</td>
+                                            <td>{{$value->transaction_date}}</td>
+                                            <td>{{$value->cust_name}}</td>
+                                            <td>
+                                                @if($value->table_no) 
+                                                    {{$value->table_no}}
+                                                @else 0 @endif
+                                            </td>
+                                            <td>{{$value->total}}</td>
+                                            <td>{{$value->payment_method}}</td>
+                                            <td>{{$value->status}}</td>
+                                            <td>
+                                            <a class="btn btn-info text-white" href="{{ route('invoice',$value->id) }}">Print</a>
+
+                                            @if ($value->status == 'UNPAID')
+                                            <a class="btn btn-primary text-white" href="{{ route('payments.edit', $value->id) }}">Edit</a>
+                                            @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        <?php } else { ?>
+                                        <tr>
+                                            <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        {{ $data['orders']->links() }}
+        {{ $orders->links() }}
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->

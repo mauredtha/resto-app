@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,18 +10,26 @@ use Illuminate\Support\Facades\Auth;
 class CategoriesController extends Controller
 {
    
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()->paginate(30);
 
-        $data = [
-            'categories' => $categories,
-            'i' => (request()->input('page', 1) - 1) * 10
-        ];
+        $data['q'] = $request->query('q');
+        $data['status'] = $request->query('status');
+        $data['statuses'] = Status::where('id', 'on')->orWhere('id', 'off')->get();
+
+        $query = Category::select('categories.*')
+            ->where(function ($query) use ($data) {
+                $query->where('categories.name', 'like', '%' . $data['q'] . '%');
+            });
+
+        if ($data['status'])
+            $query->where('categories.status', $data['status']);
+
+        $data['categories'] = $query->paginate(30)->withQueryString();
         
-        //dd($data);
+        // dd($data);
 
-        return view('categories.index',compact('data'));
+        return view('categories.index',$data);
         
     }
 

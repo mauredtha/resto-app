@@ -32,75 +32,85 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <!-- title -->
-                        <div class="d-md-flex">
-                            <div>
-                                <select class="form-select" name="status">
-                                <option value="">All Status</option>
-                                <option value="on" selected>Active</option>
-                                <option value="off">Inactive</option>
-                                </select>
-                            </div>
-                            <div class=" col">
-                                <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search name..." />
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-success">Search</button>
-                            </div>
-                            <div class="ms-auto">
-                                @if(in_array(auth()->user()->role, ['ADMIN']))
-                                <div class="text-end upgrade-btn">
-                                    <a href="{{ route('menus.create') }}" class="btn btn-primary text-white"
-                                        target="_self">Add Menu</a>
+                        <form class="row">
+                            <!-- title -->
+                            <div class="d-md-flex">
+                                <div>
+                                    <select class="form-select" name="status">
+                                        <option value="">All Status</option>
+                                        @foreach($statuses as $statuses)
+                                        @if($statuses->id==$status)
+                                        <option value="{{ $statuses->id }}" selected>{{ $statuses->name }}</option>
+                                        @else
+                                        <option value="{{ $statuses->id }}">{{ $statuses->name }}</option>
+                                        @endif
+                                        @endforeach
+                                    </select>
                                 </div>
-                                @endif
+                                <div class="col">
+                                    <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search name..." />
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-success">Search</button>
+                                </div>
+                                <div class="ms-auto">
+                                    @if(in_array(auth()->user()->role, ['ADMIN']))
+                                    <div class="text-end upgrade-btn">
+                                        <a href="{{ route('menus.create') }}" class="btn btn-primary text-white"
+                                            target="_self">Add Menu</a>
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <!-- title -->
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-hover align-middle text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th class="border-top-0">No</th>
-                                        <th class="border-top-0">Category</th>
-                                        <th class="border-top-0">Name</th>
-                                        <th class="border-top-0">Description</th>
-                                        <th class="border-top-0">Pict</th>
-                                        <th class="border-top-0">Price</th>
-                                        <th class="border-top-0">Status</th>
-                                        <th class="border-top-0">Created</th>
-                                        <th class="border-top-0" colspan="3">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $i = $menus->firstItem();
-                                    ?>
-                                    @foreach ($menus as $key => $value)
-                                    <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{$value->category_name}}</td>
-                                        <td>{{$value->name}}</td>
-                                        <td>{{$value->description}}</td>
-                                        <td>{{$value->pict}}</td>
-                                        <td>{{$value->price}}</td>
-                                        <td>{{$value->status}}</td>
-                                        <td>{{$value->created_at}}</td>
-                                        <td>
-   
-                                            <!-- <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a> -->
+                            <!-- title -->
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-hover align-middle text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">No</th>
+                                            <th class="border-top-0">Category</th>
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">Description</th>
+                                            <th class="border-top-0">Pict</th>
+                                            <th class="border-top-0">Price</th>
+                                            <th class="border-top-0">Status</th>
+                                            <th class="border-top-0">Created</th>
+                                            <th class="border-top-0" colspan="3">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if(count($menus) > 0) { ?>
+                                        <?php
+                                            $i = $menus->firstItem();
+                                        ?>
+                                        @foreach ($menus as $key => $value)
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{$value->category_name}}</td>
+                                            <td>{{$value->name}}</td>
+                                            <td>{{$value->description}}</td>
+                                            <td>{{$value->pict}}</td>
+                                            <td>{{$value->price}}</td>
+                                            <td>{{$value->status}}</td>
+                                            <td>{{$value->created_at}}</td>
+                                            <td>
+    
+                                                <!-- <a class="btn btn-info text-white" href="{{ route('menus.show',$value->id) }}">Show</a> -->
 
-                                            <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
+                                                <a class="btn btn-primary text-white" href="{{ route('menus.edit',$value->id) }}">Edit</a>
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        <?php } else { ?>
+                                        <tr>
+                                            <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

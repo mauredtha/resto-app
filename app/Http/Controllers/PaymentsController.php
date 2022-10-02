@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Payment;
@@ -15,19 +16,30 @@ class PaymentsController extends Controller
     {
         $data['q'] = $request->query('q');
         $data['status'] = $request->query('status');
+        $data['start'] = $request->query('start');
+        $data['end'] = $request->query('end');
+        $data['statuses'] = Status::where('id', 'PAID')->orWhere('id', 'UNPAID')->get();
 
-        //$data['orders'] = Payment::where('payment_type', '=', 'KASIR')->get();
         $query = Payment::select('payments.*')
             ->where(function ($query) use ($data) {
-                $query->where('payments.payment_type', '=', 'KASIR');
-            })->orderBy('transaction_date','desc');
+                $query->where('payments.payment_type', '=', 'KASIR');                
+            })
+            ->where(function ($query) use ($data) {
+                $query->where('payments.cust_name', 'like', '%' . $data['q'] . '%');                
+            })
+            ->orderBy('transaction_date','desc');
 
+            // dd($data['start']);
+        if ($data['start'])
+            $query->whereDate('transaction_date', '>=', $data['start']);
+        if ($data['end'])
+            $query->whereDate('transaction_dates', '<=', $data['end']);
         if ($data['status'])
             $query->where('payments.status', $data['status']);
 
         $data['orders'] = $query->paginate(30)->withQueryString();
-        // dd($data['menus']);
-        return view('payments.index', compact('data'));
+        // dd($data);
+        return view('payments.index', $data);
         
     }
 

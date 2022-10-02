@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\Payment;
 use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
+use App\Models\Status;
 
 class QrCodeController extends Controller
 {
@@ -44,19 +45,30 @@ class QrCodeController extends Controller
     {
         $data['q'] = $request->query('q');
         $data['status'] = $request->query('status');
+        $data['start'] = $request->query('start');
+        $data['end'] = $request->query('end');
+        $data['statuses'] = Status::where('id', 'PAID')->orWhere('id', 'UNPAID')->get();
 
-        //$data['orders'] = Payment::where('payment_type', '=', 'KASIR')->get();
         $query = Payment::select('payments.*')
             ->where(function ($query) use ($data) {
-                $query->where('payments.payment_type', '=', 'QRIS');
-            })->orderBy('transaction_date','desc');
+                $query->where('payments.payment_type', '=', 'QRIS');                
+            })
+            ->where(function ($query) use ($data) {
+                $query->where('payments.cust_name', 'like', '%' . $data['q'] . '%');                
+            })
+            ->orderBy('transaction_date','desc');
 
+            // dd($data['start']);
+        if ($data['start'])
+            $query->whereDate('transaction_date', '>=', $data['start']);
+        if ($data['end'])
+            $query->whereDate('transaction_dates', '<=', $data['end']);
         if ($data['status'])
             $query->where('payments.status', $data['status']);
 
         $data['orders'] = $query->paginate(30)->withQueryString();
         // dd($data['menus']);
-        return view('payments.index-qris', compact('data'));
+        return view('payments.index-qris', $data);
         
     }
 
