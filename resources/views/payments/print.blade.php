@@ -43,7 +43,7 @@
                     @php $no = 1 @endphp
                     @php $total = 0 @endphp
                         @foreach($data['order_details'] as $id => $details)
-                            @php $total += $details['price'] * $details['qty'] @endphp
+                            @php $total = $details['price'] * $details['qty'] @endphp
                         <tr>
                             <td class="center">{{$no}}</td>
                             <td class="left strong">{{$details->name}}</td>
