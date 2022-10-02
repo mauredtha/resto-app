@@ -39,8 +39,8 @@ class MenusController extends Controller
             $query->where('menus.status', $data['status']);
 
         $data['menus'] = $query->paginate(30)->withQueryString();
-        // dd($data['menus']);
-        return view('menus.index', compact('data'));
+        dd($data);
+        return view('menus.index', $data);
 
     }
 

@@ -42,7 +42,7 @@
                                 </select>
                             </div>
                             <div class=" col">
-                                <input class="form-control" type="text" name="q" placeholder="Search name..." />
+                                <input class="form-control" type="text" name="q" value="{{ $q }}" placeholder="Search name..." />
                             </div>
                             <div class="col">
                                 <button class="btn btn-success">Search</button>
@@ -73,11 +73,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(count($data['menus']) > 0) { ?>
                                     <?php
-                                        $i = $data['menus']->firstItem();
+                                        $i = $menus->firstItem();
                                     ?>
-                                    @foreach ($data['menus'] as $key => $value)
+                                    @foreach ($menus as $key => $value)
                                     <tr>
                                         <td>{{ $i++ }}</td>
                                         <td>{{$value->category_name}}</td>
@@ -96,11 +95,9 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    <?php } else { ?>
                                     <tr>
                                         <td colspan="10"><p align="center">Belum Ada Data, Silakan Melakukan Penambahan Data</p></td>
                                     </tr>
-                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -108,7 +105,7 @@
                 </div>
             </div>
         </div>
-        {{ $data['menus']->links() }}
+        {{ $menus->links() }}
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->
