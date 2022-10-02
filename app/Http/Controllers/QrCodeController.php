@@ -60,9 +60,9 @@ class QrCodeController extends Controller
 
             // dd($data['start']);
         if ($data['start'])
-            $query->whereDate('transaction_date', '>=', $data['start']);
+            $query->where('transaction_date', '>=', $data['start']);
         if ($data['end'])
-            $query->whereDate('transaction_dates', '<=', $data['end']);
+            $query->where('transaction_dates', '<=', $data['end']);
         if ($data['status'])
             $query->where('payments.status', $data['status']);
 
