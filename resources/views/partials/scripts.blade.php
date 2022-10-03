@@ -14,4 +14,4 @@
 <!--chartis chart-->
 <script src="/assets/libs/chartist/dist/chartist.min.js"></script>
 <script src="/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="/js/dashboards/dashboard1.js"></script>
+<!-- <script src="/js/dashboards/dashboard1.js"></script> -->

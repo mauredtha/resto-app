@@ -67,15 +67,13 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-                    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
                         <div class="d-md-flex align-items-center">
                             <div>
                                 <h4 class="card-title">Total sales in a week</h4>
                             </div>
                         </div>
-                        <div class="chart-container" style="height: 350px;">
-                        <canvas id="bar-chart"></canvas>
+                        <div class="amp-pxl mt-4" style="height: 350px;" id="bar-chart">
+                            <div class="chartist-tooltip"></div>
                         </div>
                     </div>
                 </div>
@@ -83,13 +81,13 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Total Sales Today</h4>
+                        <h4 class="card-title">Total sales today</h4>
                         <div class="mt-5 pb-3 d-flex align-items-center">
                             <span class="btn btn-primary btn-circle d-flex align-items-center">
                                 <i class="mdi mdi-cart-outline fs-4" ></i>
                             </span>
                             <div class="ms-3">
-                                <font size="7" color="black" class="mb-0 fw-bold">{{$data[0]}}</font>
+                            <font size="7" color="black" class="mb-0 fw-bold">{{$chart_day}}</font>
                             </div>
                         </div>
                     </div>
@@ -102,8 +100,47 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
 </div>
-
+@endsection
+@section('scripts')
 <script>
+$(function () {
+  "use strict";
+  // ==============================================================
+  // Newsletter
+  // ==============================================================
+
+  var cData = JSON.parse(`<?php echo $chart_data; ?>`);
+
+  var chart2 = new Chartist.Bar(
+    ".amp-pxl",
+    {
+      labels: cData.label,
+      series: [
+        cData.data
+      ],
+    },
+    {
+      axisX: {
+        // On the x-axis start means top and end means bottom
+        position: "end",
+        showGrid: false,
+      },
+      axisY: {
+        // On the y-axis start means left and end means right
+        position: "start",
+      },
+    //   high: "20",
+    //   low: "0",
+      plugins: [Chartist.plugins.tooltip()],
+    }
+  );
+
+  var chart = [chart2];
+});
+
+</script>
+
+<!-- <script>
   $(function(){
       //get the pie chart canvas
       var cData = JSON.parse(`<?php echo $chart_data; ?>`);
@@ -166,7 +203,7 @@
       });
 
   });
-</script>
+</script> -->
 <!-- ============================================================== -->
 <!-- End Page wrapper  -->
 <!-- ============================================================== -->

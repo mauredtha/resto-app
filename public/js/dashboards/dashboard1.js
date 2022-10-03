@@ -10,13 +10,14 @@ $(function () {
   // Newsletter
   // ==============================================================
 
+  var cData = JSON.parse(`<?php echo $chart_data; ?>`);
+
   var chart2 = new Chartist.Bar(
     ".amp-pxl",
     {
-      labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      labels: cData.label,
       series: [
-        [9, 5, 3, 7, 5, 10, 3],
-        [6, 3, 9, 5, 4, 6, 4],
+        cData.data
       ],
     },
     {
@@ -29,7 +30,7 @@ $(function () {
         // On the y-axis start means left and end means right
         position: "start",
       },
-      high: "12",
+      high: "50",
       low: "0",
       plugins: [Chartist.plugins.tooltip()],
     }

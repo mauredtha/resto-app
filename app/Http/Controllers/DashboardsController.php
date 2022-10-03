@@ -22,10 +22,9 @@ class DashboardsController extends Controller
             ->orderBy('day')
             ->get();
         
-        $per_day = Payment::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(created_at) as day"))
-            ->where('created_at', '>', Carbon::today()->subDay(6))
-            ->groupBy('day')
-            ->get();
+        $per_day = Payment::select(\DB::raw("COUNT(*) as count"))->whereDate('created_at', Carbon::today())->get();
+
+        // dd($per_day);
             
         $data = [];
 
